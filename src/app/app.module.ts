@@ -7,6 +7,8 @@ import { HeroDetailComponent } from './components/hero-detail/hero-detail.compon
 import { HomeComponent } from './components/home/home.component';
 import { HeaderLayoutComponent } from './components/layout/header-layout/header-layout.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EmailValidatorDirective } from './directives/validators/email-validator.directive';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,14 @@ import { LoginComponent } from './components/auth/login/login.component';
     HeroDetailComponent,
     HomeComponent,
     HeaderLayoutComponent,
-    LoginComponent
+    LoginComponent,
+    EmailValidatorDirective
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
