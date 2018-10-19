@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth/auth.service';
 import { EmailValidators } from './../../../common/validators/email.validators';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, EmailValidator } from '@angular/forms';
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, Validators, EmailValidator } from '@angular/for
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -33,4 +34,15 @@ export class LoginComponent implements OnInit {
   }
 
   change(email) { console.log(email); }
+
+  submit() {
+    const parameters = {
+      email: this.loginForm.controls.email.value,
+      password: this.loginForm.controls.password.value,
+    };
+    console.log(this.loginForm);
+    // this.authService.login(parameters).subscribe(response => {
+    //   console.log(response);
+    // });
+  }
 }

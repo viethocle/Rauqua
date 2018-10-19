@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './router/app-routing.module';
@@ -8,7 +9,6 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderLayoutComponent } from './components/layout/header-layout/header-layout.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EmailValidatorDirective } from './directives/validators/email-validator.directive';
 
 @NgModule({
   declarations: [
@@ -17,13 +17,13 @@ import { EmailValidatorDirective } from './directives/validators/email-validator
     HomeComponent,
     HeaderLayoutComponent,
     LoginComponent,
-    EmailValidatorDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
