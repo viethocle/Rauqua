@@ -38,7 +38,10 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" >
+    <div *ngIf="loginForm.errors" class="alert alert-danger">
+      The username or password is invalid
+    </div>
+    <button type="submit" class="btn btn-primary">
       Login
     </button>
   </form>

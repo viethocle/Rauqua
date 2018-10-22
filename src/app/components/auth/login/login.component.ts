@@ -40,9 +40,16 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value,
     };
-    console.log(this.loginForm);
-    // this.authService.login(parameters).subscribe(response => {
-    //   console.log(response);
+    this.authService.login(parameters).subscribe(response => {
+      const data = JSON.parse(response['_body']);
+      if (data && data.isOk) {
+        console.log('Success');
+      } else {
+        console.log('fail', data.error.code);
+      }
+    });
+    // this.loginForm.setErrors({
+    //   isLoginError: true
     // });
   }
 }
