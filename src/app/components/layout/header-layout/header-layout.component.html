@@ -14,10 +14,13 @@
         <a class="nav-link" routerLink="/heroes">Heroes</a>
       </li>
     </ul>
-    <span class="navbar-text" routerLinkActive="active">
+    <span *ngIf="!authService.isLoggedIn()" class="navbar-text" routerLinkActive="active">
       <a routerLink="/login">
         Login
       </a>
+    </span>
+    <span *ngIf="authService.isLoggedIn()" class="navbar-text" (click)="authService.logOut()">
+      Logout
     </span>
   </div>
 </nav>

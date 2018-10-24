@@ -38,8 +38,8 @@
         </div>
       </div>
     </div>
-    <div *ngIf="loginForm.errors" class="alert alert-danger">
-      The username or password is invalid
+    <div *ngIf="loginForm.errors && loginForm.errors.invalidLogin" class="alert alert-danger">
+      {{loginForm.errors.invalidLogin}}
     </div>
     <button type="submit" class="btn btn-primary">
       Login

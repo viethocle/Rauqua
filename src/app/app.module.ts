@@ -1,5 +1,6 @@
+import { AppErrorHandler } from './common/errorHandle/appErrorHandler';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -25,10 +26,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [{
-    provide: LOCALE_ID,
-    useValue: 'en'
-  }],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'en',
+    },
+    {
+      provide: ErrorHandler,
+      useClass: AppErrorHandler,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

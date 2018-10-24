@@ -1,7 +1,8 @@
 import { AuthService } from './../../../services/auth/auth.service';
 import { EmailValidators } from './../../../common/validators/email.validators';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, EmailValidator } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,8 @@ import { FormControl, FormGroup, Validators, EmailValidator } from '@angular/for
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  constructor(private authService: AuthService) { }
+  errorCode: String;
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -40,16 +42,15 @@ export class LoginComponent implements OnInit {
       email: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value,
     };
-    this.authService.login(parameters).subscribe(response => {
-      const data = JSON.parse(response['_body']);
-      if (data && data.isOk) {
-        console.log('Success');
-      } else {
-        console.log('fail', data.error.code);
-      }
-    });
-    // this.loginForm.setErrors({
-    //   isLoginError: true
-    // });
+    this.authService.login(parameters)
+      .subscribe(response => {
+        if (response.isOk) {
+          this.router.navigate(['/']);
+        } else {
+          this.loginForm.setErrors({
+            invalidLogin: response.error.code,
+          });
+        }
+      });
   }
 }
