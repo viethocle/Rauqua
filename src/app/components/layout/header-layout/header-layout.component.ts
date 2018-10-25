@@ -1,5 +1,5 @@
 import { AuthService } from './../../../services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header-layout',
@@ -7,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-layout.component.css']
 })
 export class HeaderLayoutComponent implements OnInit {
-  authService: AuthService;
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {}
 }
