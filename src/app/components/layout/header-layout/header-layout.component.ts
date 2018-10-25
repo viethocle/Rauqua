@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-layout.component.css']
 })
 export class HeaderLayoutComponent implements OnInit {
-
-  constructor(private authService: AuthService) { }
+  authService: AuthService;
+  constructor() { }
 
   ngOnInit() {}
 }

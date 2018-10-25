@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderLayoutComponent } from './components/layout/header-layout/header-layout.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthGuardService } from './services/auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     {
       provide: ErrorHandler,
       useClass: AppErrorHandler,
-    }
+    },
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,25 +1,28 @@
-import { LoginComponent } from './../components/auth/login/login.component';
+import { routePath } from '../constants/common.js';
+import { LoginComponent } from '../components/auth/login/login.component';
 import { HomeComponent } from '../components/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeroDetailComponent } from '../components/hero-detail/hero-detail.component';
+import { AuthGuardService } from '../services/auth/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: routePath.HOME,
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: routePath.HOME,
     component: HomeComponent
   },
   {
-    path: 'heroes',
-    component: HeroDetailComponent
+    path: routePath.HEROES,
+    component: HeroDetailComponent,
+    canActivate: [AuthGuardService]
   },
   {
-    path: 'login',
+    path: routePath.LOGIN,
     component: LoginComponent
   }
 ];

@@ -2,7 +2,7 @@ import { AuthService } from './../../../services/auth/auth.service';
 import { EmailValidators } from './../../../common/validators/email.validators';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,11 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorCode: String;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -45,7 +49,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(parameters)
       .subscribe(response => {
         if (response.isOk) {
-          this.router.navigate(['/']);
+          const returnURL = this.route.snapshot.queryParamMap.get('returnURL');
+          this.router.navigate([returnURL || '/']);
         } else {
           this.loginForm.setErrors({
             invalidLogin: response.error.code,

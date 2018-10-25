@@ -1,16 +1,18 @@
+import { routePath } from './../../constants/common.js';
 import { Injectable } from '@angular/core';
 import { apiURL } from '../../constants/apiUrl.js';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { DataService } from '../common/data.service.js';
-import { localStorageVariable } from '../../constants/common.js';
+import { localStorageKey } from '../../constants/common.js';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private router: Router) { }
 
   login(parameters: Object): Observable<any> {
     const resource = {
@@ -22,7 +24,7 @@ export class AuthService {
       .pipe(
         map(response => {
           if (response && response.isOk) {
-            localStorage.setItem(localStorageVariable.USER, JSON.stringify(response.data));
+            localStorage.setItem(localStorageKey.USER, JSON.stringify(response.data));
           }
           return response;
         })
@@ -30,11 +32,12 @@ export class AuthService {
   }
 
   logOut() {
-    localStorage.removeItem(localStorageVariable.USER);
+    localStorage.removeItem(localStorageKey.USER);
+    this.router.navigate([`/${routePath.LOGIN}`]);
   }
 
   isLoggedIn(): Boolean {
-    const user = localStorage.getItem(localStorageVariable.USER);
+    const user = localStorage.getItem(localStorageKey.USER);
     if (user) {
       return true;
     }
