@@ -16,7 +16,12 @@
     </ul>
     <span *ngIf="!authService.isLoggedIn()" class="navbar-text" routerLinkActive="active">
       <a routerLink="/login">
-        Login
+        Sign Up
+      </a>
+    </span>
+    <span *ngIf="!authService.isLoggedIn()" class="navbar-text" routerLinkActive="active">
+      <a routerLink="/login">
+        Sign In
       </a>
     </span>
     <span *ngIf="authService.isLoggedIn()" class="navbar-text" (click)="authService.logOut()">

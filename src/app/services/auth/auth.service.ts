@@ -1,9 +1,9 @@
+import { DataService } from './../common/data.service';
 import { routePath } from './../../constants/common.js';
 import { Injectable } from '@angular/core';
 import { apiURL } from '../../constants/apiUrl.js';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { DataService } from '../common/data.service.js';
 import { localStorageKey } from '../../constants/common.js';
 import { Router } from '@angular/router';
 
@@ -12,14 +12,16 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  constructor(private dataService: DataService, private router: Router) { }
+  constructor(
+    private dataService: DataService,
+    private router: Router
+  ) { }
 
   login(parameters: Object): Observable<any> {
     const resource = {
       body: parameters,
       url: apiURL.auth.login
     };
-
     return this.dataService.post(resource)
       .pipe(
         map(response => {

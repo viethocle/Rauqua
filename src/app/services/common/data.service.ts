@@ -1,53 +1,51 @@
-import { Resource } from './../../models/resource';
+import { Resource } from '../../models/resource';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { serverURL } from '../../constants/apiUrl.js';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
+import { ResponseData } from '../../models/reponse-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
   get(resource: Resource): Observable<any> {
-    return this.http.get(`${serverURL}${resource.url}`)
+    return this.http.get<ResponseData>(`${serverURL}${resource.url}`)
       .pipe(
         map(response => {
-          return JSON.parse(response['_body']);
-
+          return response;
         }),
         catchError(this.handleError),
       );
   }
 
   post(resource: Resource): Observable<any> {
-    return this.http.post(`${serverURL}${resource.url}`, resource.body)
+    return this.http.post<ResponseData>(`${serverURL}${resource.url}`, resource.body)
       .pipe(
         map(response => {
-          return JSON.parse(response['_body']);
-        }),
+          return response;
+        })
       );
   }
 
   put(resource: Resource): Observable<any> {
-    return this.http.put(`${serverURL}${resource.url}`, resource.body)
+    return this.http.put<ResponseData>(`${serverURL}${resource.url}`, resource.body)
       .pipe(
         map(response => {
-          return JSON.parse(response['_body']);
-
+          return response;
         }),
         catchError(this.handleError),
       );
   }
 
   delete(resource: Resource): Observable<any> {
-    return this.http.delete(`${serverURL}${resource.url}`)
+    return this.http.delete<ResponseData>(`${serverURL}${resource.url}`)
       .pipe(
         map(response => {
-          return JSON.parse(response['_body']);
+          return response;
         }),
         catchError(this.handleError),
       );

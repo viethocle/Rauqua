@@ -1,4 +1,4 @@
-export class Resource {
+export interface Resource {
   url: string;
-  body!: Object;
+  body: Object;
 }

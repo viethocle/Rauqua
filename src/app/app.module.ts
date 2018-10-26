@@ -1,7 +1,6 @@
 import { AppErrorHandler } from './common/errorHandle/appErrorHandler';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
-import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './router/app-routing.module';
@@ -11,6 +10,8 @@ import { HeaderLayoutComponent } from './components/layout/header-layout/header-
 import { LoginComponent } from './components/auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuardService } from './services/auth/auth-guard.service';
+import { HttpClientModule } from '@angular/common/http';
+import { SignUpComponent } from './components/auth/signUp/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -19,13 +20,14 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
     HomeComponent,
     HeaderLayoutComponent,
     LoginComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpClientModule
   ],
   providers: [
     {
