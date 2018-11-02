@@ -1,3 +1,4 @@
+import { SignUpComponent } from '../components/auth/signUp/sign-up.component';
 import { routePath } from '../constants/common.js';
 import { LoginComponent } from '../components/auth/login/login.component';
 import { HomeComponent } from '../components/home/home.component';
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: routePath.LOGIN,
     component: LoginComponent
+  },
+  {
+    path: routePath.SIGNUP,
+    component: SignUpComponent,
   }
 ];
 

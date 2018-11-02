@@ -5,5 +5,6 @@ export const localStorageKey = {
 export const routePath = {
   HOME: 'home',
   HEROES: 'heroes',
-  LOGIN: 'login'
+  LOGIN: 'login',
+  SIGNUP: 'signup',
 };
