@@ -7,5 +7,6 @@ export const routePath = {
   HEROES: 'heroes',
   LOGIN: 'login',
   SIGNUP: 'signup',
-  CATEGORY: 'category'
+  CATEGORY: 'category',
+  User: 'user'
 };

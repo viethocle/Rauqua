@@ -16,6 +16,9 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/category">Category</a>
       </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/user">User</a>
+      </li>
     </ul>
     <div *ngIf="!authService.isLoggedIn()" class="navbar-text signUp" routerLinkActive="active">
       <a routerLink="/signup">

@@ -1,0 +1,27 @@
+<p>
+  user works!
+</p>
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>role</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.user_role.name }}</td>
+      <td>
+        <button> edit </button>
+        <button (click)="deleteUser(user.id)"> delete </button>
+      </td>
+    </tr>
+  </tbody>
+  </table>

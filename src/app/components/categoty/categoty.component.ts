@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Response } from '@angular/http';
 import { Subject } from 'rxjs';
 import { CategoryService } from '../../services/category/category.service'
 import { Category } from '../../models/category'
@@ -22,7 +21,7 @@ export class CategotyComponent implements OnInit {
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2
+      pageLength: 10
     };
     this.categoryService.getCategory()
       .subscribe(res => {

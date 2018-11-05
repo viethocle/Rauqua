@@ -1,3 +1,4 @@
+import { User } from './../models/user';
 import { SignUpComponent } from '../components/auth/signUp/sign-up.component';
 import { routePath } from '../constants/common';
 import { LoginComponent } from '../components/auth/login/login.component';
@@ -7,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeroDetailComponent } from '../components/hero-detail/hero-detail.component';
 import { AuthGuardService } from '../services/auth/auth-guard.service';
 import { CategotyComponent } from '../components/categoty/categoty.component';
+import { UserComponent } from '../components/user/user.component'
 
 const routes: Routes = [
   {
@@ -26,6 +28,11 @@ const routes: Routes = [
   {
     path: routePath.CATEGORY,
     component: CategotyComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: routePath.User,
+    component: UserComponent,
     canActivate: [AuthGuardService]
   },
   {

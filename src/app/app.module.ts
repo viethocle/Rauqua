@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SignUpComponent } from './components/auth/signUp/sign-up.component';
 import { CategotyComponent } from './components/categoty/categoty.component';
 import { DataTablesModule } from 'angular-datatables';
+import { UserComponent } from './components/user/user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { DataTablesModule } from 'angular-datatables';
     LoginComponent,
     SignUpComponent,
     CategotyComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

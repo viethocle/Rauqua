@@ -7,5 +7,9 @@ export const apiURL = {
   categoty: {
     all: "categories",
     delete: "categories/",
+  },
+  user: {
+    all: "users",
+    delete: "users/"
   }
 }
