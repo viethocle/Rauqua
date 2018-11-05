@@ -19,6 +19,8 @@ import { ProductComponent } from './components/product/product.component';
 import { OrderComponent } from './components/order/order.component';
 import { PromotionComponent } from './components/promotion/promotion.component';
 import { CouponComponent } from './components/coupon/coupon.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,8 @@ import { CouponComponent } from './components/coupon/coupon.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
-    DataTablesModule
+    DataTablesModule,
+    NgbModule
   ],
   providers: [
     {
