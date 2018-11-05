@@ -10,6 +10,9 @@ import { AuthGuardService } from '../services/auth/auth-guard.service';
 import { CategotyComponent } from '../components/categoty/categoty.component';
 import { UserComponent } from '../components/user/user.component'
 import { ProductComponent } from '../components/product/product.component'
+import { OrderComponent } from '../components/order/order.component'
+import { PromotionComponent } from '../components/promotion/promotion.component'
+import { CouponComponent } from '../components/coupon/coupon.component'
 
 const routes: Routes = [
   {
@@ -39,6 +42,21 @@ const routes: Routes = [
   {
     path: routePath.Product,
     component: ProductComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: routePath.Order,
+    component: OrderComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: routePath.Promotion,
+    component: PromotionComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: routePath.Coupon,
+    component: CouponComponent,
     canActivate: [AuthGuardService]
   },
   {

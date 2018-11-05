@@ -9,5 +9,8 @@ export const routePath = {
   SIGNUP: 'signup',
   CATEGORY: 'category',
   User: 'user',
-  Product: 'product'
+  Product: 'product',
+  Order: 'order',
+  Promotion: 'promotion',
+  Coupon: 'coupon'
 };

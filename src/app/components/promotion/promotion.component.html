@@ -1,0 +1,30 @@
+<p>
+  promotion works!
+</p>
+
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Image</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let promotion of promotions">
+      <td>{{ promotion.id }}</td>
+      <td>{{ promotion.name }}</td>
+      <td>{{ promotion.start_date }}</td>
+      <td>{{ promotion.end_date }}</td>
+      <td>{{ promotion.image }}</td>
+      <td>
+        <button> edit </button>
+        <button (click)="deletePromotion(promotion.id)"> delete </button>
+      </td>
+    </tr>
+  </tbody>
+  </table>

@@ -3,40 +3,40 @@ import { Injectable } from '@angular/core';
 import { apiURL } from '../../constants/apiUrl';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
-
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class OrderService {
 
   constructor(
     private dataService: DataService,
   ) { }
 
-  getUser(): Observable<any> {
+  getOrder(): Observable<any> {
     const resource = {
       body: null,
-      url: apiURL.user.all
+      url: apiURL.order.all
     };
     return  this.dataService.get(resource)
     .pipe(
       map(res => {
-        return res.result.data
+        return res.data
       })
     )
   }
 
-  deleteUser(id: number): Observable<any> {
+  deleteOrder(id: number): Observable<any>  {
     const resource = {
       body: null,
-      url: apiURL.user.delete + id.toString()
+      url: apiURL.order.delete + id.toString()
     };
-    return  this.dataService.get(resource) 
-    .pipe(
-      map(res => {
-        return res
-      })
-    )
+     return this.dataService.delete(resource)
+     .pipe(
+       map(
+         res => {
+           return res
+         }
+       )
+     )
   }
 }

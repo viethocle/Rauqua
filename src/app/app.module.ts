@@ -16,6 +16,9 @@ import { CategotyComponent } from './components/categoty/categoty.component';
 import { DataTablesModule } from 'angular-datatables';
 import { UserComponent } from './components/user/user.component';
 import { ProductComponent } from './components/product/product.component';
+import { OrderComponent } from './components/order/order.component';
+import { PromotionComponent } from './components/promotion/promotion.component';
+import { CouponComponent } from './components/coupon/coupon.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +30,9 @@ import { ProductComponent } from './components/product/product.component';
     CategotyComponent,
     UserComponent,
     ProductComponent,
+    OrderComponent,
+    PromotionComponent,
+    CouponComponent,
   ],
   imports: [
     BrowserModule,

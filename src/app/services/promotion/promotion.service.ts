@@ -4,39 +4,40 @@ import { apiURL } from '../../constants/apiUrl';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class PromotionService {
 
   constructor(
     private dataService: DataService,
   ) { }
 
-  getUser(): Observable<any> {
+  getPromotion(): Observable<any> {
     const resource = {
       body: null,
-      url: apiURL.user.all
+      url: apiURL.promotion.all
     };
     return  this.dataService.get(resource)
     .pipe(
       map(res => {
-        return res.result.data
+        return res.result
       })
     )
   }
 
-  deleteUser(id: number): Observable<any> {
+  deletePromotion(id: number): Observable<any>  {
     const resource = {
       body: null,
-      url: apiURL.user.delete + id.toString()
+      url: apiURL.promotion.delete + id.toString()
     };
-    return  this.dataService.get(resource) 
-    .pipe(
-      map(res => {
-        return res
-      })
-    )
+     return this.dataService.delete(resource)
+     .pipe(
+       map(
+         res => {
+           return res
+         }
+       )
+     )
   }
 }

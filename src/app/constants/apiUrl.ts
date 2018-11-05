@@ -15,5 +15,17 @@ export const apiURL = {
   product: {
     all: "products",
     delete: "products/"
+  },
+  order: {
+    all: "orders",
+    delete: "orders/"
+  },
+  promotion: {
+    all: "promotions",
+    delete: "promotions/"
+  },
+  coupon: {
+    all: "coupons",
+    delete: "coupons/"
   }
 }

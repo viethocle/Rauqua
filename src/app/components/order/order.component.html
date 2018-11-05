@@ -1,0 +1,26 @@
+<p>
+  order works!
+</p>
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User Name</th>
+      <th>Delivery Time</th>
+      <th>Paymentstatus</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{ order.id }}</td>
+      <td>{{ order.user.fullname }}</td>
+      <td>{{ order.delivery_time }}</td>
+      <td>{{ order.payment_status}}</td>
+      <td>
+        <button> edit </button>
+        <button (click)="deleteorder(order.id)"> delete </button>
+      </td>
+    </tr>
+  </tbody>
+  </table>

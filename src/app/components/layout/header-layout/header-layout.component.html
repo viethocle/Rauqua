@@ -14,13 +14,22 @@
         <a class="nav-link" routerLink="/heroes">Heroes</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/category">Category</a>
+        <a class="nav-link" routerLink="/category">Categories</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/user">User</a>
+        <a class="nav-link" routerLink="/user">Users</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/product">Product</a>
+        <a class="nav-link" routerLink="/product">Products</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/order">Orders</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/promotion">Promotions</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/coupon">Coupons</a>
       </li>
     </ul>
     <div *ngIf="!authService.isLoggedIn()" class="navbar-text signUp" routerLinkActive="active">
