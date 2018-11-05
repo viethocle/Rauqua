@@ -13,7 +13,7 @@ import { AuthGuardService } from './services/auth/auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SignUpComponent } from './components/auth/signUp/sign-up.component';
 import { CategotyComponent } from './components/categoty/categoty.component';
-
+import { DataTablesModule } from 'angular-datatables';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +23,8 @@ import { CategotyComponent } from './components/categoty/categoty.component';
     LoginComponent,
     SignUpComponent,
     CategotyComponent,
+    BrowserModule,
+    DataTablesModule
   ],
   imports: [
     BrowserModule,
