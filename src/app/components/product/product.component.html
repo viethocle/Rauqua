@@ -1,0 +1,34 @@
+<p>
+  product works!
+</p>
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Shop</th>
+      <th>Category</th>
+      <th>Describe</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Origin</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.shop.name }}</td>
+      <td>{{ product.category.name }}</td>
+      <td>{{ product.describe}}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>{{ product.origin }}</td>
+      <td>
+        <button> edit </button>
+        <button (click)="deleteProduct(product.id)"> delete </button>
+      </td>
+    </tr>
+  </tbody>
+  </table>

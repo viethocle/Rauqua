@@ -11,5 +11,9 @@ export const apiURL = {
   user: {
     all: "users",
     delete: "users/"
+  },
+  product: {
+    all: "products",
+    delete: "products/"
   }
 }

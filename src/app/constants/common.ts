@@ -8,5 +8,6 @@ export const routePath = {
   LOGIN: 'login',
   SIGNUP: 'signup',
   CATEGORY: 'category',
-  User: 'user'
+  User: 'user',
+  Product: 'product'
 };

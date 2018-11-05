@@ -9,6 +9,7 @@ import { HeroDetailComponent } from '../components/hero-detail/hero-detail.compo
 import { AuthGuardService } from '../services/auth/auth-guard.service';
 import { CategotyComponent } from '../components/categoty/categoty.component';
 import { UserComponent } from '../components/user/user.component'
+import { ProductComponent } from '../components/product/product.component'
 
 const routes: Routes = [
   {
@@ -33,6 +34,11 @@ const routes: Routes = [
   {
     path: routePath.User,
     component: UserComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: routePath.Product,
+    component: ProductComponent,
     canActivate: [AuthGuardService]
   },
   {

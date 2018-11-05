@@ -4,33 +4,32 @@ import { apiURL } from '../../constants/apiUrl';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class ProductService {
 
   constructor(
     private dataService: DataService,
   ) { }
 
-  getCategory(): Observable<any> {
+  getProduct(): Observable<any> {
     const resource = {
       body: null,
-      url: apiURL.categoty.all
+      url: apiURL.product.all
     };
     return  this.dataService.get(resource)
     .pipe(
       map(res => {
-        return res.result
+        return res.result.data
       })
     )
   }
 
-  deleteCategory(id: number): Observable<any>  {
+  deleteProduct(id: number): Observable<any>  {
     const resource = {
       body: null,
-      url: apiURL.categoty.delete + id.toString()
+      url: apiURL.product.delete + id.toString()
     };
      return this.dataService.delete(resource)
      .pipe(
