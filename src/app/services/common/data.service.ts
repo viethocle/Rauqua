@@ -1,7 +1,8 @@
 import { Resource } from '../../models/resource';
 import { Injectable } from '@angular/core';
+import { localStorageKey } from '../../constants/common';
 import { serverURL } from '../../constants/apiUrl.js';
-import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { HttpErrorResponse, HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { ResponseData } from '../../models/reponse-data';
@@ -65,5 +66,15 @@ export class DataService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
+  }
+
+  private getOptionsHeaders(): HttpHeaders {
+    let user = JSON.parse(localStorage.getItem(localStorageKey.USER))
+    if (!user) {
+      return null
+    }
+    let token = user.token
+    let httpHeaders = new HttpHeaders();
+    return httpHeaders.append('Authorization', 'Bearer ' + token) 
   }
 }
