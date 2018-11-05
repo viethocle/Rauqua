@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SignUpComponent } from './components/auth/signUp/sign-up.component';
+import { CategotyComponent } from './components/categoty/categoty.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SignUpComponent } from './components/auth/signUp/sign-up.component';
     HeaderLayoutComponent,
     LoginComponent,
     SignUpComponent,
+    CategotyComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Resource } from '../../models/resource';
 import { Injectable } from '@angular/core';
 import { localStorageKey } from '../../constants/common';
-import { serverURL } from '../../constants/apiUrl.js';
+import { serverURL } from '../../constants/apiUrl';
 import { HttpErrorResponse, HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';

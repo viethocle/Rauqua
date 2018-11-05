@@ -1,11 +1,12 @@
 import { SignUpComponent } from '../components/auth/signUp/sign-up.component';
-import { routePath } from '../constants/common.js';
+import { routePath } from '../constants/common';
 import { LoginComponent } from '../components/auth/login/login.component';
 import { HomeComponent } from '../components/home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeroDetailComponent } from '../components/hero-detail/hero-detail.component';
 import { AuthGuardService } from '../services/auth/auth-guard.service';
+import { CategotyComponent } from '../components/categoty/categoty.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: routePath.HEROES,
     component: HeroDetailComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: routePath.CATEGORY,
+    component: CategotyComponent,
     canActivate: [AuthGuardService]
   },
   {

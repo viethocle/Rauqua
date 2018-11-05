@@ -1,10 +1,10 @@
 import { DataService } from './../common/data.service';
 import { routePath } from './../../constants/common.js';
 import { Injectable } from '@angular/core';
-import { apiURL } from '../../constants/apiUrl.js';
+import { apiURL } from '../../constants/apiUrl';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { localStorageKey } from '../../constants/common.js';
+import { localStorageKey } from '../../constants/common';
 import { Router } from '@angular/router';
 
 @Injectable({
