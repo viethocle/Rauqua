@@ -48,14 +48,17 @@ export class LoginComponent implements OnInit {
     };
     this.authService.login(parameters)
       .subscribe(response => {
-        if (response.isOk) {
+        if (response && response.code == 200) {
+          console.log("200:", response)
           const returnURL = this.route.snapshot.queryParamMap.get('returnURL');
           this.router.navigate([returnURL || '/']);
-        } else {
-          this.loginForm.setErrors({
-            invalidLogin: response.error.code,
-          });
         }
-      });
+      },
+      err => {
+        this.loginForm.setErrors({
+          invalidLogin: err,
+        });
+      }
+      );
   }
 }

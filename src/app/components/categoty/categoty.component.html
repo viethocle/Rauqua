@@ -1,3 +1,26 @@
 <p>
   categoty works!
 </p>
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Position</th>
+      <th>Image</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categories">
+      <td>{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+      <td>{{ category.position }}</td>
+      <td>{{ category.image }}</td>
+      <td>
+        <button> edit </button>
+        <button> delete </button>
+      </td>
+    </tr>
+  </tbody>
+  </table>

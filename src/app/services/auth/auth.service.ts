@@ -3,9 +3,10 @@ import { routePath } from './../../constants/common.js';
 import { Injectable } from '@angular/core';
 import { apiURL } from '../../constants/apiUrl';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { localStorageKey } from '../../constants/common';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,8 @@ export class AuthService {
             localStorage.setItem(localStorageKey.USER, JSON.stringify(response.data));
           }
           return response;
-        })
+        }),
+        catchError(err => throwError(err))
       );
   }
 

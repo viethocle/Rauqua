@@ -23,15 +23,15 @@ import { DataTablesModule } from 'angular-datatables';
     LoginComponent,
     SignUpComponent,
     CategotyComponent,
-    BrowserModule,
-    DataTablesModule
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserModule,
+    DataTablesModule
   ],
   providers: [
     {
