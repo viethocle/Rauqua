@@ -1,7 +1,7 @@
 import { Resource } from '../../models/resource';
 import { Injectable } from '@angular/core';
 import { localStorageKey } from '../../constants/common';
-import { serverURL } from '../../constants/apiUrl';
+import { serverURL, baseURL } from '../../constants/apiUrl';
 import { HttpErrorResponse, HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
@@ -13,6 +13,18 @@ import { ResponseData } from '../../models/reponse-data';
 export class DataService {
 
   constructor(private http: HttpClient) { }
+
+  login(resource: Resource): Observable<any> {
+    return this.http.post<ResponseData>(`${baseURL}${resource.url}`, resource.body)
+      .pipe(
+        map(response => {
+          return response;
+        }),
+        catchError(this.handleError),
+      );
+  }
+
+
   get(resource: Resource): Observable<any> {
     return this.http.get<ResponseData>(`${serverURL}${resource.url}`)
       .pipe(
@@ -24,11 +36,13 @@ export class DataService {
   }
 
   post(resource: Resource): Observable<any> {
+    // return this.http.post<ResponseData>(`${serverURL}${resource.url}`, resource.body, { headers: this.getOptionsHeaders() })
     return this.http.post<ResponseData>(`${serverURL}${resource.url}`, resource.body)
       .pipe(
         map(response => {
           return response;
-        })
+        }),
+        catchError(this.handleError),
       );
   }
 

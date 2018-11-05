@@ -3,6 +3,7 @@ import { Response } from '@angular/http';
 import { Subject } from 'rxjs';
 import { CategoryService } from '../../services/category/category.service'
 import { Category } from '../../models/category'
+import * as _ from "lodash"
 
 @Component({
   selector: 'app-categoty',
@@ -36,9 +37,11 @@ export class CategotyComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body.data || {};
+  deleteCategory(id: number){
+    this.categoryService.deleteCategory(id)
+    .subscribe(res => {
+      this.categories = _.reject(this.categories, ["id", id]);
+    })
   }
 
 }

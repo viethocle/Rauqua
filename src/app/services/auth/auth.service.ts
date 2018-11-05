@@ -1,11 +1,12 @@
 import { DataService } from './../common/data.service';
 import { routePath } from './../../constants/common.js';
 import { Injectable } from '@angular/core';
-import { apiURL } from '../../constants/apiUrl';
+import { apiURL } from '../../constants/apiUrl.js';
 import { map } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { localStorageKey } from '../../constants/common';
+import { localStorageKey } from '../../constants/common.js';
 import { Router } from '@angular/router';
+import { log } from 'util';
 import { catchError } from 'rxjs/operators'
 
 @Injectable({
@@ -23,11 +24,11 @@ export class AuthService {
       body: parameters,
       url: apiURL.auth.login
     };
-    return this.dataService.post(resource)
+    return this.dataService.login(resource)
       .pipe(
         map(response => {
-          if (response && response.isOk) {
-            localStorage.setItem(localStorageKey.USER, JSON.stringify(response.data));
+          if (response && response.code == 200) {
+            localStorage.setItem(localStorageKey.USER, JSON.stringify(response.result));
           }
           return response;
         }),

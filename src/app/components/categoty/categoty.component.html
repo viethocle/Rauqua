@@ -19,7 +19,7 @@
       <td>{{ category.image }}</td>
       <td>
         <button> edit </button>
-        <button> delete </button>
+        <button (click)="deleteCategory(category.id)"> delete </button>
       </td>
     </tr>
   </tbody>

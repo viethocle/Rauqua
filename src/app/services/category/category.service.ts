@@ -30,4 +30,19 @@ export class CategoryService {
       })
     )
   }
+
+  deleteCategory(id: number): Observable<any>  {
+    const resource = {
+      body: null,
+      url: apiURL.categoty.delete + id.toString()
+    };
+     return this.dataService.delete(resource)
+     .pipe(
+       map(
+         res => {
+           return res
+         }
+       )
+     )
+  }
 }

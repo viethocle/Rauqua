@@ -1,9 +1,11 @@
 export const serverURL = "https://greengrocer.herokuapp.com/api/admin/"
+export const baseURL = "https://greengrocer.herokuapp.com/api/"
 export const apiURL = {
   auth: {
-    login: "auth/signIn"
+    login: "login"
   },
   categoty: {
-    all: "categories"
+    all: "categories",
+    delete: "categories/",
   }
 }
