@@ -20,6 +20,12 @@ import { OrderComponent } from './components/order/order.component';
 import { PromotionComponent } from './components/promotion/promotion.component';
 import { CouponComponent } from './components/coupon/coupon.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { LaddaModule }         from 'angular2-ladda';
+import { ClickOutsideModule } from 'ng-click-outside';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
+import { NavbarComponent } from './components/layout/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +41,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     OrderComponent,
     PromotionComponent,
     CouponComponent,
+    SidebarComponent,
+    FooterComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +53,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     BrowserModule,
     DataTablesModule,
-    NgbModule
+    NgbModule,
+    LaddaModule.forRoot({
+      style: "slide-left"
+    }),
+    LoadingBarHttpClientModule,
+    ClickOutsideModule
   ],
   providers: [
     {

@@ -1,0 +1,11 @@
+.sidebar {
+  background-color: #222A2D;
+  border-right-width: 0;
+}
+
+.sidebar.sidebar-fixed {
+  position: fixed;
+  top: auto;
+  float: none!important;
+  z-index: 1027;
+}

@@ -10,8 +10,12 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  // loginForm: FormGroup;
   errorCode: String;
+
+  loginForm: FormGroup;
+  remember = false;
+  isLoading = false;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -41,10 +45,10 @@ export class LoginComponent implements OnInit {
 
   change(email) { console.log(email); }
 
-  submit() {
+  submit(value: any) {
     const parameters = {
-      email: this.loginForm.controls.email.value,
-      password: this.loginForm.controls.password.value,
+      email: value.email,
+      password: value.password,
     };
     this.authService.login(parameters)
       .subscribe(response => {
