@@ -8,7 +8,6 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class HeaderLayoutComponent implements OnInit {
   constructor(
-    private authService: AuthService
   ) { }
 
   ngOnInit() {}
