@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './services/auth/auth.service'
 import { SidebarService } from './components/layout/sidebar.service';
+import '../assets/js/jquery.dataTables.js';
+import '../assets/js/jquery.dataTables.bootstrap.js';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
