@@ -1,27 +1,29 @@
-<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Code</th>
-      <th>Discount</th>
-      <th>Start day</th>
-      <th>End day</th>
-      <th>Time</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let coupon of coupons">
-      <td>{{ coupon.id }}</td>
-      <td>{{ coupon.code }}</td>
-      <td>{{ coupon.percents }} %</td>
-      <td>{{ coupon.start_date}}</td>
-      <td>{{ coupon.end_date}}</td>
-      <td>{{ coupon.times}}</td>
-      <td>
-        <button> edit </button>
-        <button (click)="deleteCoupon(coupon.id)"> delete </button>
-      </td>
-    </tr>
-  </tbody>
+<div id="main-product" class="col-md-12">
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Code</th>
+        <th>Discount</th>
+        <th>Start day</th>
+        <th>End day</th>
+        <th>Time</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let coupon of coupons">
+        <td>{{ coupon.id }}</td>
+        <td>{{ coupon.code }}</td>
+        <td>{{ coupon.percents }} %</td>
+        <td>{{ coupon.start_date}}</td>
+        <td>{{ coupon.end_date}}</td>
+        <td>{{ coupon.times}}</td>
+        <td>
+          <button> edit </button>
+          <button (click)="deleteCoupon(coupon.id)"> delete </button>
+        </td>
+      </tr>
+    </tbody>
   </table>
+</div>

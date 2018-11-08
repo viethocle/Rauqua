@@ -1,13 +1,13 @@
-import { AuthService } from './../../../services/auth/auth.service';
-import { AppValidators } from '../../../common/validators/appValidators';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from "./../../../services/auth/auth.service";
+import { AppValidators } from "../../../common/validators/appValidators";
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
   // loginForm: FormGroup;
@@ -20,15 +20,15 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [
+      email: new FormControl("", [
         Validators.required,
         AppValidators.checkFormatEmail
       ]),
-      password: new FormControl('', [
+      password: new FormControl("", [
         Validators.required,
         Validators.minLength(8)
       ])
@@ -36,47 +36,36 @@ export class LoginComponent implements OnInit {
   }
 
   get email() {
-    return this.loginForm.get('email');
+    return this.loginForm.get("email");
   }
 
   get password() {
-    return this.loginForm.get('password');
+    return this.loginForm.get("password");
   }
 
-  change(email) { console.log(email); }
+  change(email) {
+    console.log(email);
+  }
 
   submit(value: any) {
     const parameters = {
       email: value.email,
-      password: value.password,
+      password: value.password
     };
-    this.authService.login(parameters)
-      .subscribe(response => {
+    this.authService.login(parameters).subscribe(
+      response => {
         if (response && response.code == 200) {
-          console.log("200:", response)
-          const returnURL = this.route.snapshot.queryParamMap.get('returnURL');
-          this.router.navigate([returnURL || '/']);
+          console.log("200:", response);
+          const returnURL = this.route.snapshot.queryParamMap.get("returnURL");
+          this.router.navigate([returnURL || "/"]);
         }
       },
       err => {
-        console.log('err:', err);
-      this.loginForm.setErrors({
-        invalidLogin: err
-      })
-        // this.afterFailedLogin(err);
-        
+        console.log("err:", err);
+        this.loginForm.setErrors({
+          invalidLogin: err
+        });
       }
-      );
+    );
   }
-
-  afterFailedLogin(errors: any) {
-    const parsed_errors = errors
-    for (const attribute in this.loginForm.controls) {
-      
-        this.loginForm.controls[attribute].setErrors(parsed_errors);
-    
-    }
-    this.loginForm.setErrors(parsed_errors);
-  }
-
 }

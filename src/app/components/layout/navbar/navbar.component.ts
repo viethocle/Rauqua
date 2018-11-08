@@ -1,30 +1,35 @@
-import { Component, AfterViewInit, OnInit, ViewChild, ElementRef } from '@angular/core'
-import { SidebarService } from '../sidebar.service'
-import { Router, Event, NavigationStart } from "@angular/router"
-import { AuthService } from '../../../services/auth/auth.service'
-import { localStorageKey } from '../../../constants/common';
+import {
+  Component,
+  AfterViewInit,
+  OnInit,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
+import { SidebarService } from "../sidebar.service";
+import { Router, Event, NavigationStart } from "@angular/router";
+import { AuthService } from "../../../services/auth/auth.service";
+import { localStorageKey } from "../../../constants/common";
 
 @Component({
-  selector: '[app-navbar]',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: "[app-navbar]",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.css"]
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
-
-  @ViewChild("button_sidebar") btnSidebar: ElementRef
+  @ViewChild("button_sidebar") btnSidebar: ElementRef;
   status = false; // true mean open sidebar
 
   constructor(
     private sideSvc: SidebarService,
     private router: Router,
-    private authService: AuthService,
-  ) { }
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.sideSvc.clickOutSide.subscribe(res => {
-      if (this.btnSidebar.nativeElement.classList.contains('display')) {
-        let el: HTMLElement = this.btnSidebar.nativeElement as HTMLElement
-        el.click()
+      if (this.btnSidebar.nativeElement.classList.contains("display")) {
+        let el: HTMLElement = this.btnSidebar.nativeElement as HTMLElement;
+        el.click();
       }
     });
   }
@@ -34,11 +39,11 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         if (this.btnSidebar.nativeElement.classList.contains("display")) {
-          let el: HTMLElement = this.btnSidebar.nativeElement as HTMLElement
-          el.click()
+          let el: HTMLElement = this.btnSidebar.nativeElement as HTMLElement;
+          el.click();
         }
       }
-    })
+    });
   }
 
   toogleBtnSidebar() {
@@ -47,10 +52,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   getUsername(): string {
     if (this.authService.currentUserData) {
-      let user =  JSON.parse(localStorage.getItem(localStorageKey.USER))
-      return user.user.username
+      let user = JSON.parse(localStorage.getItem(localStorageKey.USER));
+      return user.user.username;
     }
-    return "admin"
+    return "admin";
   }
 
   isLoggedIn(): boolean {

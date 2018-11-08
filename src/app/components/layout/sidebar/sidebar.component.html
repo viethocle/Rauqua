@@ -1,5 +1,8 @@
 <script type="text/javascript">
-  try { ace.settings.loadState('sidebar') } catch (e) { }
+  try {
+    ace.settings.loadState('sidebar')
+  } catch (e) {}
+
 </script>
 
 <ul class="nav nav-list">
@@ -9,9 +12,9 @@
       <span class="menu-text"> Categories </span>
     </a>
   </li>
-  <li  routerLinkActive="active">
+  <li routerLinkActive="active">
     <a [routerLink]="['/user']">
-      <i  class="menu-icon fa fa-credit-card "></i>
+      <i class="menu-icon fa fa-credit-card "></i>
       <span class="menu-text"> Users </span>
     </a>
   </li>
@@ -25,7 +28,7 @@
     </a>
   </li>
 
-  <li  routerLinkActive="active">
+  <li routerLinkActive="active">
     <a [routerLink]="['/order']">
       <i class="menu-icon fa fa-envelope"></i>
       <span class="menu-text"> Orders </span>
@@ -51,7 +54,7 @@
     </a>
   </li>
 
-  
+
 </ul>
 <!-- /.nav-list -->
 

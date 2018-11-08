@@ -1,28 +1,23 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
-import { ErrorLabelComponent, ErrorMessagesPipe, InputFieldComponent } from './components/';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsModalModule } from 'ng2-bs3-modal';
+import {
+  ErrorLabelComponent,
+  ErrorMessagesPipe,
+  InputFieldComponent
+} from "./components/";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BsModalModule } from "ng2-bs3-modal";
 
 @NgModule({
-  imports: [
-    FormsModule,
-    CommonModule,
-    ReactiveFormsModule,
-    BsModalModule,
-  ],
-  declarations: [
-    InputFieldComponent,
-    ErrorLabelComponent,
-    ErrorMessagesPipe,
-  ],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, BsModalModule],
+  declarations: [InputFieldComponent, ErrorLabelComponent, ErrorMessagesPipe],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     InputFieldComponent,
     ErrorLabelComponent,
-    BsModalModule,
+    BsModalModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {}
