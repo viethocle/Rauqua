@@ -1,3 +1,21 @@
+<div class="tableTools-container">
+  <button type="button" class="btn btn-primary create-product" (click)="modal.open()">Add category</button>
+</div>
+<bs-modal #modal>
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Thêm loại sản phẩm</h4>
+  </bs-modal-header>
+  <bs-modal-body>
+    <app-input-field [attribute]="name" [control]="form.get('name')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+  </bs-modal-body>
+  <bs-modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+    <button id="btn-create-user" class="btn btn-primary add-product" [disabled]="form.invalid" >Create</button>
+  </bs-modal-footer>
+</bs-modal>
 <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
   <thead>
     <tr>

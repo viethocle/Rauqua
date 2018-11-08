@@ -2,8 +2,10 @@ import { AppErrorHandler } from './common/errorHandle/appErrorHandler';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './router/app-routing.module';
+import { SharedModule } from '@shared/shared.module';
 import { HeroDetailComponent } from './components/hero-detail/hero-detail.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderLayoutComponent } from './components/layout/header-layout/header-layout.component';
@@ -26,6 +28,8 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
+import { BsModalModule } from 'ng2-bs3-modal';
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -58,7 +62,10 @@ import { NavbarComponent } from './components/layout/navbar/navbar.component';
       style: "slide-left"
     }),
     LoadingBarHttpClientModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    BsModalModule,
+    TranslateModule.forRoot(),
+    SharedModule,
   ],
   providers: [
     {
