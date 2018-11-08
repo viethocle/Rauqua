@@ -45,7 +45,7 @@ export class AuthService {
           this.userSignedIn$.next(true)
           return response;
         }),
-        catchError(this.handleError)
+        catchError(err =>  throwError(err))
       );
   }
 
@@ -67,10 +67,5 @@ export class AuthService {
     let user =  JSON.parse(localStorage.getItem(localStorageKey.USER))
     console.log("hoc:", user)
     return user.user.username
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    this.userSignedIn$.next(false);
-    return throwError('Something bad happened; please try again later.');
   }
 }

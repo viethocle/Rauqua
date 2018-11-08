@@ -59,10 +59,24 @@ export class LoginComponent implements OnInit {
         }
       },
       err => {
-        this.loginForm.setErrors({
-          invalidLogin: err,
-        });
+        console.log('err:', err);
+      this.loginForm.setErrors({
+        invalidLogin: err
+      })
+        // this.afterFailedLogin(err);
+        
       }
       );
   }
+
+  afterFailedLogin(errors: any) {
+    const parsed_errors = errors
+    for (const attribute in this.loginForm.controls) {
+      
+        this.loginForm.controls[attribute].setErrors(parsed_errors);
+    
+    }
+    this.loginForm.setErrors(parsed_errors);
+  }
+
 }

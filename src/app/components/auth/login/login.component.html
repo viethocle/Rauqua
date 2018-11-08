@@ -38,7 +38,7 @@
                                           <i class="ace-icon fa fa-user"></i>
                                       </span>
                                   </label>
-                                  <!-- <app-error-label [control]="loginForm.get('email')"></app-error-label> -->
+                                  <app-error-label [control]="loginForm.get('email')"></app-error-label>
                                   <label class="block clearfix">
                                       <span class="block input-icon input-icon-right">
                                           <input
@@ -50,11 +50,13 @@
                                           <i class="ace-icon fa fa-lock"></i>
                                       </span>
                                   </label>
-                                  <!-- <app-error-label [control]="loginForm.get('password')"></app-error-label> -->
+                                  <app-error-label [control]="loginForm.get('password')"></app-error-label>
 
                                   <div class="space"></div>
-                                  <!-- <app-error-label [control]="loginForm"></app-error-label> -->
-
+                                  <div *ngIf="loginForm.errors && loginForm.errors.invalidLogin" class="alert alert-danger">
+                                        {{loginForm.errors.invalidLogin}}
+                                    </div>
+                                  
                                   <div class="clearfix">
                                       <label class="inline">
                                           <input type="checkbox" class="ace" />
