@@ -1,12 +1,9 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 
-@Pipe({ name: 'errorMessages' })
+@Pipe({ name: "errorMessages" })
 export class ErrorMessagesPipe implements PipeTransform {
-
-  constructor(
-    private translate: TranslateService
-  ) {}
+  constructor(private translate: TranslateService) {}
 
   transform(value: Object): Array<string> {
     if (Array.isArray(value)) {
@@ -44,11 +41,11 @@ export class ErrorMessagesPipe implements PipeTransform {
   }
 
   private existingCodeProduct(_error): string {
-    return this.translate.instant('message.forms.code-product-taken');
+    return this.translate.instant("message.forms.code-product-taken");
   }
 
   private shouldBeMatched(_error): string {
-    return this.translate.instant('message.forms.should-be-matched');
+    return this.translate.instant("message.forms.should-be-matched");
   }
 
   private existingEmail(_error): string {
@@ -64,11 +61,13 @@ export class ErrorMessagesPipe implements PipeTransform {
   }
 
   private minValueError(error): string {
-    return this.translate.instant("message.forms.min-value-error", {value: error['min']});
+    return this.translate.instant("message.forms.min-value-error", {
+      value: error["min"]
+    });
   }
 
   private patternError(error): string {
-    return `Must match /${error['requiredPattern']}/ pattern`;
+    return `Must match /${error["requiredPattern"]}/ pattern`;
   }
 
   private maxLengthError(error): string {
@@ -84,7 +83,7 @@ export class ErrorMessagesPipe implements PipeTransform {
   }
 
   private requiredError(_error): string {
-    return this.translate.instant('message.forms.required');
+    return this.translate.instant("message.forms.required");
   }
 
   private fullMessages(error): Array<string> {
