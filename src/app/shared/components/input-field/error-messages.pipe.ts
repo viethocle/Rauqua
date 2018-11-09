@@ -41,27 +41,27 @@ export class ErrorMessagesPipe implements PipeTransform {
   }
 
   private existingCodeProduct(_error): string {
-    return this.translate.instant("message.forms.code-product-taken");
+    return this.translate.instant("Mã sản phẩm này đã được sử dụng. Vui lòng chọn mã khác!");
   }
 
   private shouldBeMatched(_error): string {
-    return this.translate.instant("message.forms.should-be-matched");
+    return this.translate.instant("Mật khẩu không khớp");
   }
 
   private existingEmail(_error): string {
-    return this.translate.instant("message.forms.existing-email");
+    return this.translate.instant("Email này đã tồn tại, vui lòng chọn email khác");
   }
 
   private emailNotCorrect(_error): string {
-    return this.translate.instant("message.forms.email-not-correct");
+    return this.translate.instant("Email không chính xác");
   }
 
   private cannotContainSpace(_error): string {
-    return this.translate.instant("message.forms.cannot-contain-space");
+    return this.translate.instant("Phần nhập này không được chứa khoảng trắng");
   }
 
   private minValueError(error): string {
-    return this.translate.instant("message.forms.min-value-error", {
+    return this.translate.instant("Giá trị cần phải lớn hơn", {
       value: error["min"]
     });
   }
@@ -71,19 +71,15 @@ export class ErrorMessagesPipe implements PipeTransform {
   }
 
   private maxLengthError(error): string {
-    return this.translate.instant("message.forms.max-length-error", {
-      value: error["requiredLength"] + 1
-    });
+    return `Độ dài không được quá ${error["requiredLength"] + 1} ký tự`
   }
 
   private minLengthError(error): string {
-    return this.translate.instant("message.forms.min-length-error", {
-      value: error["requiredLength"] - 1
-    });
+    return `Độ dài phải nhiều hơn ${error["requiredLength"] - 1} ký tự`
   }
 
   private requiredError(_error): string {
-    return this.translate.instant("message.forms.required");
+    return this.translate.instant("Phần nhập bắt buộc");
   }
 
   private fullMessages(error): Array<string> {

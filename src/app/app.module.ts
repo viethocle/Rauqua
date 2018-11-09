@@ -11,7 +11,7 @@ import { HeaderLayoutComponent } from "./components/layout/header-layout/header-
 import { LoginComponent } from "./components/auth/login/login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthGuardService } from "./services/auth/auth-guard.service";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { SignUpComponent } from "./components/auth/signUp/sign-up.component";
 import { CategotyComponent } from "./components/categoty/categoty.component";
 import { DataTablesModule } from "angular-datatables";
@@ -28,7 +28,12 @@ import { SidebarComponent } from "./components/layout/sidebar/sidebar.component"
 import { FooterComponent } from "./components/layout/footer/footer.component";
 import { NavbarComponent } from "./components/layout/navbar/navbar.component";
 import { BsModalModule } from "ng2-bs3-modal";
-import { TranslateModule } from "@ngx-translate/core";
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
 
 @NgModule({
   declarations: [
@@ -55,6 +60,7 @@ import { TranslateModule } from "@ngx-translate/core";
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
+    SharedModule,
     DataTablesModule,
     NgbModule,
     LaddaModule.forRoot({
@@ -63,8 +69,14 @@ import { TranslateModule } from "@ngx-translate/core";
     LoadingBarHttpClientModule,
     ClickOutsideModule,
     BsModalModule,
-    TranslateModule.forRoot(),
-    SharedModule
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+        }
+    }),
+    
   ],
   providers: [
     {
