@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { apiURL } from "../../constants/apiUrl";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { log } from "util";
 
 @Injectable({
   providedIn: "root"
@@ -20,6 +21,21 @@ export class UserService {
         return res.result.data;
       })
     );
+  }
+
+  getProvider(): Observable<any> {
+    const resource = {
+      body: null,
+      url: apiURL.user.provider
+    }
+
+    return this.dataService.get(resource).pipe(
+      map(res => {
+        console.log(res)
+        return res.result.data
+
+      })
+    )
   }
 
   deleteUser(id: number): Observable<any> {

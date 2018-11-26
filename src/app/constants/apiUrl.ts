@@ -10,10 +10,12 @@ export const apiURL = {
   },
   user: {
     all: "users",
+    provider: "users",
     delete: "users/"
   },
   product: {
     all: "products",
+    post: "products",
     delete: "products/"
   },
   order: {

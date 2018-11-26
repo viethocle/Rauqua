@@ -1,4 +1,66 @@
 <div id="main-product" class="col-md-12">
+
+  <div class="tableTools-container">
+    <button type="button" class="btn btn-primary create-product" (click)="modal.open()">Tạo mới sản phẩm</button>
+  </div>
+  <bs-modal #modal>
+    <bs-modal-header [showDismiss]="true">
+      <h4 class="modal-title">Tạo mới sản phẩm</h4>
+    </bs-modal-header>
+    <bs-modal-body>
+      <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
+      </app-input-field>
+      <app-error-label [control]="form"></app-error-label>
+
+      <app-input-field [attribute]="'Shop ID'" [control]="form.get('shop_id')">
+      </app-input-field>
+      <app-error-label [control]="form"></app-error-label>
+      
+      <app-input-field [attribute]="'Category ID'" [control]="form.get('category_id')">
+      </app-input-field>
+      <app-error-label [control]="form"></app-error-label>
+
+      <app-input-field [attribute]="'Describe'" [control]="form.get('describe')">
+      </app-input-field>
+      <app-error-label [control]="form"></app-error-label>
+
+      <app-input-field [attribute]="'Giá'" [control]="form.get('price')">
+      </app-input-field>
+      <app-error-label [control]="form"></app-error-label>
+
+      <app-input-field [attribute]="'Nguồn gốc'" [control]="form.get('origin')">
+      </app-input-field>
+      <app-error-label [control]="form"></app-error-label>
+
+      <app-input-field [attribute]="'Số lượng'" [control]="form.get('quantity')">
+      </app-input-field>
+      <app-error-label [control]="form"></app-error-label>
+
+      <form [formGroup]="form">
+        <input  type="date" name="imported_date" formControlName="imported_date">
+        <input  type="date" name="expired_date" formControlName="expired_date">
+      </form>
+
+
+      <app-input-field [attribute]="'Active'" [control]="form.get('active')">
+      </app-input-field>
+      <app-error-label [control]="form"></app-error-label>
+
+
+      <h3>File upload</h3>
+      <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput>
+      <button (click)="fileInput.click()">Pick File</button>
+      <button (click)="onUpload()">Upload</button>
+      <img [src]="url" height="50"> <br />
+      
+    </bs-modal-body>
+    <bs-modal-footer>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+      <button id="btn-create-user" class="btn btn-primary add-product" (click)="postProduct()">Create</button>
+      <!-- [disabled]="form.invalid" -->
+    </bs-modal-footer>
+  </bs-modal>
+
   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
     <thead>
       <tr>

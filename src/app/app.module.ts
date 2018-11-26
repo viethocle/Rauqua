@@ -30,10 +30,18 @@ import { NavbarComponent } from "./components/layout/navbar/navbar.component";
 import { BsModalModule } from "ng2-bs3-modal";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { ShopComponent } from './components/shop/shop.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { TooltipModule } from 'ngx-tooltip';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   declarations: [
@@ -51,7 +59,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CouponComponent,
     SidebarComponent,
     FooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +72,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     DataTablesModule,
     NgbModule,
+    TooltipModule,
+    PerfectScrollbarModule,
     LaddaModule.forRoot({
       style: "slide-left"
     }),
@@ -84,10 +95,15 @@ export function HttpLoaderFactory(http: HttpClient) {
       useValue: "en"
     },
     {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    },
+    {
       provide: ErrorHandler,
       useClass: AppErrorHandler
     },
-    AuthGuardService
+    AuthGuardService,
+    Ng2SearchPipeModule
   ],
   bootstrap: [AppComponent]
 })

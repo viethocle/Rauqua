@@ -22,6 +22,19 @@ export class ProductService {
     );
   }
 
+  postProduct(value: any): Observable<any> {
+    const resource = {
+      body: value,
+      url: apiURL.product.post
+    };
+    console.log(value)
+    return this.dataService.post(resource).pipe(
+      map(res => {
+        return res.result;
+      })
+    );
+  }
+
   deleteProduct(id: number): Observable<any> {
     const resource = {
       body: null,

@@ -19,7 +19,7 @@ export class DataService {
 
   login(resource: Resource): Observable<any> {
     return this.http
-      .post<ResponseData>(`${baseURL}${resource.url}`, resource.body)
+      .post<ResponseData>(`${serverURL}${resource.url}`, resource.body)
       .pipe(
         map(response => {
           return response;
@@ -29,7 +29,7 @@ export class DataService {
   }
 
   get(resource: Resource): Observable<any> {
-    return this.http.get<ResponseData>(`${serverURL}${resource.url}`).pipe(
+    return this.http.get<ResponseData>(`${serverURL}${resource.url}`, { headers: this.getOptionsHeaders() }).pipe(
       map(response => {
         return response;
       }),
@@ -40,7 +40,7 @@ export class DataService {
   post(resource: Resource): Observable<any> {
     // return this.http.post<ResponseData>(`${serverURL}${resource.url}`, resource.body, { headers: this.getOptionsHeaders() })
     return this.http
-      .post<ResponseData>(`${serverURL}${resource.url}`, resource.body)
+      .post<ResponseData>(`${serverURL}${resource.url}`, resource.body, { headers: this.getOptionsHeaders() })
       .pipe(
         map(response => {
           return response;
@@ -51,7 +51,7 @@ export class DataService {
 
   put(resource: Resource): Observable<any> {
     return this.http
-      .put<ResponseData>(`${serverURL}${resource.url}`, resource.body)
+      .put<ResponseData>(`${serverURL}${resource.url}`, resource.body, { headers: this.getOptionsHeaders() })
       .pipe(
         map(response => {
           return response;
@@ -61,7 +61,7 @@ export class DataService {
   }
 
   delete(resource: Resource): Observable<any> {
-    return this.http.delete<ResponseData>(`${serverURL}${resource.url}`).pipe(
+    return this.http.delete<ResponseData>(`${serverURL}${resource.url}`, { headers: this.getOptionsHeaders() }).pipe(
       map(response => {
         return response;
       }),

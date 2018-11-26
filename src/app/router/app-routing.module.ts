@@ -13,6 +13,7 @@ import { ProductComponent } from '../components/product/product.component'
 import { OrderComponent } from '../components/order/order.component'
 import { PromotionComponent } from '../components/promotion/promotion.component'
 import { CouponComponent } from '../components/coupon/coupon.component'
+import { ShopComponent } from 'app/components/shop/shop.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,11 @@ const routes: Routes = [
   {
     path: routePath.Coupon,
     component: CouponComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: routePath.Shop,
+    component: ShopComponent,
     canActivate: [AuthGuardService]
   },
   {
