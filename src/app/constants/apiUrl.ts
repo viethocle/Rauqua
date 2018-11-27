@@ -13,6 +13,11 @@ export const apiURL = {
     provider: "users",
     delete: "users/"
   },
+  manager: {
+    all: "managers",
+    create: "managers",
+    update: "managers/"
+  },
   product: {
     all: "products",
     post: "products",

@@ -9,10 +9,11 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Name</th>
+        <th>Tên</th>
         <th>Email</th>
-        <th>role</th>
-        <th>Action</th>
+        <th>Địa chỉ</th>
+        <th>Vai trò</th>
+        <th>Hoạt động</th>
       </tr>
     </thead>
     <tbody>
@@ -20,7 +21,8 @@
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.user_role.name }}</td>
+        <td>{{ user.address }}</td>
+        <td>{{ user.role }}</td>
         <td>
           <button (click)="openModalEdit(user)"> edit </button>
           <button (click)="deleteUser(user.id)"> delete </button>
@@ -36,25 +38,34 @@
     <h4 class="modal-title">Tạo mới người dùng</h4>
   </bs-modal-header>
   <bs-modal-body>
-    <app-input-field [attribute]="'Tên'" [control]="form.get('name')">
+    <app-input-field [attribute]="'Tên'" [control]="formAdd.get('username')">
     </app-input-field>
 
-    <app-input-field [attribute]="'Email'" [control]="form.get('email')">
+    <app-input-field [attribute]="'Email'" [control]="formAdd.get('email')">
     </app-input-field>
 
-    <app-input-field [attribute]="'Mật khẩu'" [control]="form.get('password')" [type]="'password'">
+    <app-input-field [attribute]="'Tên đầy đủ'" [control]="formAdd.get('fullname')">
     </app-input-field>
 
-    <app-input-field [attribute]="'Nhập lại mật khẩu'" [control]="form.get('password_confirmation')" [type]="'password'">
+    <app-input-field [attribute]="'Địa chỉ'" [control]="formAdd.get('address')">
     </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Số Điện thoại'" [control]="formAdd.get('phone')">
+    </app-input-field>
+
+    <app-input-field [attribute]="'Mật khẩu'" [control]="formAdd.get('password')" [type]="'password'">
+    </app-input-field>
+
+    <app-input-field [attribute]="'Nhập lại mật khẩu'" [control]="formAdd.get('password_confirmation')" [type]="'password'">
+    </app-input-field>
+    <app-error-label [control]="formAdd"></app-error-label>
 
     <div class="control-group">
       <label for="">Vai trò</label>
       <!-- choose manager -->
       <div class="radio">
         <label>
-          <input [formControl]="form.get('role')" type="radio" class="ace" name="form-field-radio" [value]="'mod'">
+          <input [formControl]="formAdd.get('role')" type="radio" class="ace" name="form-field-radio" [value]="'mod'">
           <span class="lbl">
             Quản lý
           </span>
@@ -63,7 +74,7 @@
       <!-- Choose staff -->
       <div class="radio">
         <label>
-          <input [formControl]="form.get('role')" type="radio" class="ace" name="form-field-radio" [value]="'provider'">
+          <input [formControl]="formAdd.get('role')" type="radio" class="ace" name="form-field-radio" [value]="'provider'">
           <span class="lbl">
             Nhà cung cấp
           </span>
@@ -72,7 +83,7 @@
       <!-- Choose staff -->
       <div class="radio">
         <label>
-          <input [formControl]="form.get('role')" type="radio" class="ace" name="form-field-radio" [value]="'admin'">
+          <input [formControl]="formAdd.get('role')" type="radio" class="ace" name="form-field-radio" [value]="'admin'">
           <span class="lbl">
             Admin
           </span>
@@ -83,7 +94,7 @@
   </bs-modal-body>
   <bs-modal-footer>
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Hủy bỏ</button>
-    <button id="btn-create-user" class="btn btn-primary add-product" [disabled]="form.invalid" (click)="addUser(form.value)">Tạo
+    <button id="btn-create-user" class="btn btn-primary add-product" (click)="addUser(formAdd.value)">Tạo
       mới</button>
   </bs-modal-footer>
 </bs-modal>
@@ -96,16 +107,25 @@
 
   <bs-modal-body>
 
-    <app-input-field [attribute]="'Tên'" [control]="formEdit.get('name')">
+    <app-input-field [attribute]="'Tên'" [control]="formEdit.get('username')">
     </app-input-field>
 
     <app-input-field [attribute]="'Email'" [control]="formEdit.get('email')">
     </app-input-field>
 
-    <app-input-field [attribute]="'Mật Khẩu'" [control]="formEdit.get('password')" [type]="'password'">
+    <app-input-field [attribute]="'Tên đầy đủ'" [control]="formEdit.get('fullname')">
     </app-input-field>
 
-    <app-input-field [attribute]="'Xác thực mật khẩu'" [control]="formEdit.get('password_confirmation')" [type]="'password'">
+    <app-input-field [attribute]="'Địa chỉ'" [control]="formEdit.get('address')">
+    </app-input-field>
+
+    <app-input-field [attribute]="'Số Điện thoại'" [control]="formEdit.get('phone')">
+    </app-input-field>
+
+    <app-input-field [attribute]="'Mật khẩu'" [control]="formEdit.get('password')" [type]="'password'">
+    </app-input-field>
+
+    <app-input-field [attribute]="'Nhập lại mật khẩu'" [control]="formEdit.get('password_confirmation')" [type]="'password'">
     </app-input-field>
     <app-error-label [control]="formEdit"></app-error-label>
 
@@ -143,7 +163,7 @@
 
   <bs-modal-footer>
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalEdit.dismiss()">Hủy bỏ</button>
-    <button id="btn-create-user" class="btn btn-primary add-product" [disabled]="formEdit.invalid" (click)="updateUser(formEdit.value)">Cập
+    <button id="btn-create-user" class="btn btn-primary add-product" (click)="updateUser(formEdit.value)">Cập
       nhật</button>
   </bs-modal-footer>
 </bs-modal>

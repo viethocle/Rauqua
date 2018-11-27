@@ -14,13 +14,39 @@ export class UserService {
   getUser(): Observable<any> {
     const resource = {
       body: null,
-      url: apiURL.user.all
+      url: apiURL.manager.all
     };
     return this.dataService.get(resource).pipe(
       map(res => {
-        return res.result.data;
+        return res.result;
       })
     );
+  }
+
+  createUser(value: any): Observable<any> {
+    const resource = {
+      body: value,
+      url: apiURL.manager.create
+    }
+
+    return this.dataService.post(resource).pipe(
+      map(res => {
+        return res.result
+      })
+    )
+  }
+
+  updateUser(value: any, userId: any): Observable<any> {
+    const resource = {
+      body: value,
+      url: apiURL.manager.update + userId
+    }
+
+    return this.dataService.put(resource).pipe(
+      map(res => {
+        return res.result
+      })
+    )
   }
 
   getProvider(): Observable<any> {
@@ -43,7 +69,7 @@ export class UserService {
       body: null,
       url: apiURL.user.delete + id.toString()
     };
-    return this.dataService.get(resource).pipe(
+    return this.dataService.delete(resource).pipe(
       map(res => {
         return res;
       })
