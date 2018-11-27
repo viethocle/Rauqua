@@ -12,6 +12,7 @@ import { LoginComponent } from "./components/auth/login/login.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthGuardService } from "./services/auth/auth-guard.service";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { SignUpComponent } from "./components/auth/signUp/sign-up.component";
 import { CategotyComponent } from "./components/categoty/categoty.component";
 import { DataTablesModule } from "angular-datatables";
@@ -34,6 +35,7 @@ import { ShopComponent } from './components/shop/shop.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TooltipModule } from 'ngx-tooltip';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import {ToastModule} from 'ng6-toastr/ng2-toastr';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -64,6 +66,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

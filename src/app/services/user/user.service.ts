@@ -1,8 +1,8 @@
 import { DataService } from "./../common/data.service";
 import { Injectable } from "@angular/core";
 import { apiURL } from "../../constants/apiUrl";
-import { map } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { map, catchError } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
 import { log } from "util";
 
 @Injectable({
@@ -32,7 +32,8 @@ export class UserService {
     return this.dataService.post(resource).pipe(
       map(res => {
         return res.result
-      })
+      }),
+      catchError(err => throwError(err))
     )
   }
 
@@ -45,7 +46,8 @@ export class UserService {
     return this.dataService.put(resource).pipe(
       map(res => {
         return res.result
-      })
+      }),
+      catchError(err => throwError(err))
     )
   }
 

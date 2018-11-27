@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { Subject } from "rxjs";
 import { User } from "../../models/user";
 import { UserService } from "../../services/user/user.service";
@@ -10,6 +10,7 @@ import {
   Validators,
   AbstractControl
 } from "@angular/forms";
+import { ToastsManager } from "ng6-toastr";
 
 @Component({
   selector: "app-user",
@@ -27,7 +28,14 @@ export class UserComponent implements OnInit {
   users: any[] = [];
   user: any;
   role: any;
-  constructor(private userService: UserService, private fb: FormBuilder) {}
+  constructor(
+    private userService: UserService,
+    private fb: FormBuilder,
+    public toastr: ToastsManager,
+    vcr: ViewContainerRef
+  ) {
+    this.toastr.setRootViewContainerRef(vcr);
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -122,10 +130,16 @@ export class UserComponent implements OnInit {
 
   updateUser(value: any) {
     value = _.pickBy(value);
-    this.userService.updateUser(value, this.user.id).subscribe(user => {
-      _.assign(this.users.find(t => t.id === user.id), user);
-      this.modalEdit.close()
-    });
+    this.userService.updateUser(value, this.user.id).subscribe(
+      user => {
+        _.assign(this.users.find(t => t.id === user.id), user);
+        this.modalEdit.close();
+      },
+      err => {
+        console.log("err:", err.phone);
+        this.toastr.error(err.phone);
+      }
+    );
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
