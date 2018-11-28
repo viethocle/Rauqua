@@ -124,8 +124,8 @@ export class UserComponent implements OnInit {
   addUser(value: any) {
     console.log("oke:", value);
     this.userService.createUser(value).subscribe(res => {
-      this.users.push(res);
-      this.toastr.success("Cập nhật thành công!");
+      this.users.unshift(res);
+      this.toastr.success("Tạo mới thành công!");
     },
       err => {
         this.toastr.error("Đã xảy ra lỗi: ", err);
