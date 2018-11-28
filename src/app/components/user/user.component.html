@@ -117,19 +117,19 @@
                 {{resources[i].name}}
               </td>
               <td [formGroupName]="i" >
-                  <input type="checkbox" formControlName="canView">
+                  <input type="checkbox" formControlName="can_view">
                   {{item.value.canView}}
               </td>
               <td [formGroupName]="i">
-                  <input type="checkbox" formControlName="canAdd">
+                  <input type="checkbox" formControlName="can_add">
                 {{item.value.canAdd}}
               </td>
               <td [formGroupName]="i">
-                  <input type="checkbox" formControlName="canEdit">
+                  <input type="checkbox" formControlName="can_edit">
                 {{item.value.canEdit}}
               </td>
               <td [formGroupName]="i">
-                  <input type="checkbox" formControlName="canDelete">
+                  <input type="checkbox" formControlName="can_del">
                 {{item.value.canDelete}}
               </td>
             </tr>

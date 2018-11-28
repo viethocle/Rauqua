@@ -101,10 +101,10 @@ export class UserComponent implements OnInit {
   createContent(id: any): FormGroup {
     return this.fb.group({
       resource_id: id,
-      canView: true,
-      canAdd: true,
-      canEdit: true,
-      canDelete: true
+      can_view: true,
+      can_add: true,
+      can_edit: true,
+      can_del: true
     });
   }
 

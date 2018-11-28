@@ -6,16 +6,19 @@
 </script>
 
 <ul class="nav nav-list">
+    <li routerLinkActive="active">
+        <a [routerLink]="['/shop']">
+          <i class="menu-icon fa fa-users "></i>
+          <span class="menu-text">
+            Cửa hàng
+          </span>
+        </a>
+      </li>
+
   <li routerLinkActive="active">
     <a [routerLink]="['/category']">
       <i class="menu-icon fa fa-desktop"></i>
-      <span class="menu-text"> Categories </span>
-    </a>
-  </li>
-  <li routerLinkActive="active">
-    <a [routerLink]="['/user']">
-      <i class="menu-icon fa fa-credit-card "></i>
-      <span class="menu-text"> Users </span>
+      <span class="menu-text"> Loại sản phẩm </span>
     </a>
   </li>
 
@@ -23,7 +26,7 @@
     <a [routerLink]="['/product']">
       <i class="menu-icon fa fa-tasks "></i>
       <span class="menu-text">
-        Products
+        Sản phẩm
       </span>
     </a>
   </li>
@@ -31,16 +34,15 @@
   <li routerLinkActive="active">
     <a [routerLink]="['/order']">
       <i class="menu-icon fa fa-envelope"></i>
-      <span class="menu-text"> Orders </span>
+      <span class="menu-text"> Đơn hàng </span>
     </a>
   </li>
-
 
   <li routerLinkActive="active">
     <a [routerLink]="['/promotion']">
       <i class="menu-icon fa fa-users "></i>
       <span class="menu-text">
-        Promotions
+        Khuyến mãi
       </span>
     </a>
   </li>
@@ -49,19 +51,19 @@
     <a [routerLink]="['/coupon']">
       <i class="menu-icon fa fa-users "></i>
       <span class="menu-text">
-        Coupons
+        Phiếu giảm giá
       </span>
     </a>
   </li>
 
   <li routerLinkActive="active">
-    <a [routerLink]="['/shop']">
-      <i class="menu-icon fa fa-users "></i>
-      <span class="menu-text">
-        Shops
-      </span>
+    <a [routerLink]="['/user']">
+      <i class="menu-icon fa fa-credit-card "></i>
+      <span class="menu-text"> Người dùng </span>
     </a>
   </li>
+
+  
 
 
 </ul>
