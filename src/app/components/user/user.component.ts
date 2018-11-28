@@ -8,9 +8,11 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
-  AbstractControl
+  AbstractControl,
+  FormArray
 } from "@angular/forms";
 import { ToastsManager } from "ng6-toastr";
+import { CodegenComponentFactoryResolver } from "@angular/core/src/linker/component_factory_resolver";
 
 @Component({
   selector: "app-user",
@@ -26,8 +28,13 @@ export class UserComponent implements OnInit {
   formEdit: FormGroup;
 
   users: any[] = [];
+  userAddIsMod: number = 0;
   user: any;
   role: any;
+  resources: any;
+  controls: any;
+  contents: any;
+
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
@@ -47,9 +54,9 @@ export class UserComponent implements OnInit {
 
     this.userService.getUser().subscribe(res => {
       this.users = res;
-      console.log(this.users);
       this.dtTrigger.next();
     });
+    this.contents = this.formAdd.get("role_resources") as FormArray;
   }
 
   buildForm() {
@@ -68,7 +75,8 @@ export class UserComponent implements OnInit {
           Validators.compose([Validators.required, Validators.minLength(8)])
         ],
         password_confirmation: ["", Validators.required],
-        role: ["", Validators.required]
+        role: ["", Validators.required],
+        role_resources: this.fb.array([])
       },
       { validator: this.passwordConfirming }
     );
@@ -90,6 +98,15 @@ export class UserComponent implements OnInit {
       { validator: this.passwordConfirming }
     );
   }
+  createContent(id: any): FormGroup {
+    return this.fb.group({
+      resource_id: id,
+      canView: true,
+      canAdd: true,
+      canEdit: true,
+      canDelete: true
+    });
+  }
 
   passwordConfirming(c: AbstractControl) {
     if (c.get("password").value !== c.get("password_confirmation").value) {
@@ -105,13 +122,33 @@ export class UserComponent implements OnInit {
   }
 
   addUser(value: any) {
+    console.log("oke:", value);
     this.userService.createUser(value).subscribe(res => {
-      console.log(res);
       this.users.push(res);
       console.log(this.users);
     });
 
     this.modal.close();
+  }
+
+  editMode() {
+    this.userAddIsMod = 1;
+    console.log(this.contents);
+    if (this.contents.value.length == 0){
+      this.userService.getResource().subscribe(res => {
+        this.resources = res;
+        
+        this.resources.forEach(resource => {
+          this.contents.push(this.createContent(resource.id));
+        });
+        console.log(this.contents);
+      });
+    }
+   
+  }
+
+  backAddUser() {
+    this.userAddIsMod = 0;
   }
 
   openModalEdit(user: any) {
@@ -133,10 +170,10 @@ export class UserComponent implements OnInit {
     this.userService.updateUser(value, this.user.id).subscribe(
       user => {
         _.assign(this.users.find(t => t.id === user.id), user);
+        this.toastr.success("Cập nhật thành công!");
         this.modalEdit.close();
       },
       err => {
-        console.log("err:", err.phone);
         this.toastr.error(err.phone);
       }
     );

@@ -23,6 +23,19 @@ export class UserService {
     );
   }
 
+  getResource():Observable<any>{
+    const resource = {
+      body: null,
+      url: apiURL.resources.all
+    }
+    return this.dataService.get(resource).pipe(
+      map(res => {
+        return res.result
+      }),
+      catchError(err => throwError(err))
+    )
+  }
+
   createUser(value: any): Observable<any> {
     const resource = {
       body: value,

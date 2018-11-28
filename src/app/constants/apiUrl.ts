@@ -13,6 +13,9 @@ export const apiURL = {
     provider: "users",
     delete: "users/"
   },
+  resources: {
+    all: "resources"
+  },
   manager: {
     all: "managers",
     create: "managers",
