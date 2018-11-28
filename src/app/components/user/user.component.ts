@@ -125,15 +125,17 @@ export class UserComponent implements OnInit {
     console.log("oke:", value);
     this.userService.createUser(value).subscribe(res => {
       this.users.push(res);
-      console.log(this.users);
-    });
+      this.toastr.success("Cập nhật thành công!");
+    },
+      err => {
+        this.toastr.error("Đã xảy ra lỗi: ", err);
+      });
 
     this.modal.close();
   }
 
   editMode() {
     this.userAddIsMod = 1;
-    console.log(this.contents);
     if (this.contents.value.length == 0){
       this.userService.getResource().subscribe(res => {
         this.resources = res;
@@ -141,7 +143,6 @@ export class UserComponent implements OnInit {
         this.resources.forEach(resource => {
           this.contents.push(this.createContent(resource.id));
         });
-        console.log(this.contents);
       });
     }
    
@@ -174,7 +175,7 @@ export class UserComponent implements OnInit {
         this.modalEdit.close();
       },
       err => {
-        this.toastr.error(err.phone);
+        this.toastr.error("Đã xảy ra lỗi", err);
       }
     );
   }
