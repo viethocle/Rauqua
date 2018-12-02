@@ -15,7 +15,7 @@
       <app-input-field [attribute]="'Shop ID'" [control]="form.get('shop_id')">
       </app-input-field>
       <app-error-label [control]="form"></app-error-label>
-      
+
       <app-input-field [attribute]="'Category ID'" [control]="form.get('category_id')">
       </app-input-field>
       <app-error-label [control]="form"></app-error-label>
@@ -37,8 +37,8 @@
       <app-error-label [control]="form"></app-error-label>
 
       <form [formGroup]="form">
-        <input  type="date" name="imported_date" formControlName="imported_date">
-        <input  type="date" name="expired_date" formControlName="expired_date">
+        <input type="date" name="imported_date" formControlName="imported_date">
+        <input type="date" name="expired_date" formControlName="expired_date">
       </form>
 
 
@@ -52,7 +52,7 @@
       <button (click)="fileInput.click()">Pick File</button>
       <button (click)="onUpload()">Upload</button>
       <img [src]="url" height="50"> <br />
-      
+
     </bs-modal-body>
     <bs-modal-footer>
       <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>

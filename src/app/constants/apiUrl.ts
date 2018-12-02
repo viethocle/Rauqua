@@ -19,7 +19,8 @@ export const apiURL = {
   manager: {
     all: "managers",
     create: "managers",
-    update: "managers/"
+    update: "managers/",
+    provider: "managers?role=provider"
   },
   product: {
     all: "products",
@@ -37,5 +38,11 @@ export const apiURL = {
   coupon: {
     all: "coupons",
     delete: "coupons/"
+  },
+  shop: {
+    all: "shops",
+    create: "shops",
+    delete: "shops/",
+    edit: "shops/"
   }
 }

@@ -36,7 +36,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TooltipModule } from 'ngx-tooltip';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import {ToastModule} from 'ng6-toastr/ng2-toastr';
-
+import { HttpModule } from '@angular/http';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -76,6 +76,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule,
     DataTablesModule,
     NgbModule,
+    HttpModule,
+    Ng2SearchPipeModule,
     TooltipModule,
     PerfectScrollbarModule,
     LaddaModule.forRoot({
@@ -107,8 +109,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useClass: AppErrorHandler
     },
     AuthGuardService,
-    Ng2SearchPipeModule
-  ],
+  ], 
   bootstrap: [AppComponent]
 })
 export class AppModule {}

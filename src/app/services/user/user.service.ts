@@ -67,13 +67,13 @@ export class UserService {
   getProvider(): Observable<any> {
     const resource = {
       body: null,
-      url: apiURL.user.provider
+      url: apiURL.manager.provider
     }
 
     return this.dataService.get(resource).pipe(
       map(res => {
         console.log(res)
-        return res.result.data
+        return res.result
 
       })
     )
