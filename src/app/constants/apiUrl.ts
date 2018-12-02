@@ -6,6 +6,7 @@ export const apiURL = {
   },
   categoty: {
     all: "categories",
+    create: "categories",
     delete: "categories/",
   },
   user: {

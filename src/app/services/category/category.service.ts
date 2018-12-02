@@ -22,6 +22,19 @@ export class CategoryService {
     );
   }
 
+  addCategory(formData: any):Observable<any> {
+    const resource = {
+      body: formData,
+      url: apiURL.categoty.create
+    };
+
+    return this.dataService.post(resource).pipe(
+      map(res => {
+        return res.result;
+      })
+    );
+  }
+
   deleteCategory(id: number): Observable<any> {
     const resource = {
       body: null,

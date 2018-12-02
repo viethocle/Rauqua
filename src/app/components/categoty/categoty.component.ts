@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { Subject } from "rxjs";
 import { CategoryService } from "../../services/category/category.service";
 import { Category } from "../../models/category";
@@ -11,6 +11,7 @@ import {
 } from "@angular/forms";
 import * as _ from "lodash";
 import { BsModalComponent } from "ng2-bs3-modal";
+import { ToastsManager } from "ng6-toastr";
 // import 'jquery';
 // import 'bootstrap';
 
@@ -29,9 +30,12 @@ export class CategotyComponent implements OnInit {
   url: any  = "https://image.freepik.com/free-photo/rows-of-colorful-energy-category_1156-662.jpg";
   constructor(
     private categoryService: CategoryService,
-    private fb: FormBuilder
-  ) {}
-
+    private fb: FormBuilder,
+    public toastr: ToastsManager,
+    vcr: ViewContainerRef
+  ) {
+    this.toastr.setRootViewContainerRef(vcr);
+  }
   ngOnInit(): void {
     this.buildForm();
     this.dtOptions = {
@@ -55,7 +59,7 @@ export class CategotyComponent implements OnInit {
       name: [
         "",
         Validators.compose([Validators.required, Validators.minLength(2)])
-      ]
+      ],
     });
   }
 
@@ -79,5 +83,16 @@ export class CategotyComponent implements OnInit {
     }
   }
 
-  onUpload() {}
+  createCategory() {
+    const formData: FormData = new FormData();
+    formData.append("image", this.selectedFile, this.selectedFile.name);
+    formData.append("name", this.form.value.name);
+    formData.append("parent_id", "0");
+    this.categoryService.addCategory(formData).subscribe(res => {
+      this.categories.unshift(res);
+      this.toastr.success("Đã tạo cửa hàng thành công!");
+      this.form.reset();
+      this.modal.close();
+    });
+  }
 }

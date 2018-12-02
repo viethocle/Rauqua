@@ -2,26 +2,7 @@
   <div class="tableTools-container">
     <button type="button" class="btn btn-primary create-product" (click)="modal.open()">Thêm loại sản phẩm</button>
   </div>
-  <bs-modal #modal>
-    <bs-modal-header [showDismiss]="true">
-      <h4 class="modal-title">Thêm loại sản phẩm</h4>
-    </bs-modal-header>
-    <bs-modal-body>
-      <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
-      </app-input-field>
-      <app-error-label [control]="form"></app-error-label>
-
-      <h3>File upload</h3>
-      <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput>
-      <button (click)="fileInput.click()">Pick File</button>
-      <button (click)="onUpload()">Upload</button>
-      <img [src]="url" height="50"> <br />
-    </bs-modal-body>
-    <bs-modal-footer>
-      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-      <button id="btn-create-user" class="btn btn-primary add-product" [disabled]="form.invalid">Create</button>
-    </bs-modal-footer>
-  </bs-modal>
+  
   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="dynamic-table_wrapper" class="table table-striped table-bordered
   table-hover dataTable no-footer"
     cellspacing="0" width="100%">
@@ -29,7 +10,7 @@
       <tr>
         <th>ID</th>
         <th>Tên</th>
-        <th>Công dụng</th>
+        <th>Thứ tự hiển thị</th>
         <th>Ảnh</th>
         <th class="sorting_disabled"></th>
       </tr>
@@ -54,5 +35,22 @@
   </table>
 </div>
 
+<bs-modal #modal>
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Thêm loại sản phẩm</h4>
+  </bs-modal-header>
+  <bs-modal-body>
+    <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
 
-
+    <h3>File upload</h3>
+    <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput>
+    <button (click)="fileInput.click()">Chọn ảnh</button>
+    <img [src]="url" height="50"> <br />
+  </bs-modal-body>
+  <bs-modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Hủy bỏ</button>
+    <button id="btn-create-user" class="btn btn-primary add-product" [disabled]="form.invalid" (click)="createCategory()">Tạo mới</button>
+  </bs-modal-footer>
+</bs-modal>
