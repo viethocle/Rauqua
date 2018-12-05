@@ -6,12 +6,18 @@ import { map } from "rxjs/operators";
 import { Observable, throwError, BehaviorSubject, Subject } from "rxjs";
 import { localStorageKey } from "../../constants/common";
 import { Router } from "@angular/router";
-import { HttpErrorResponse } from "@angular/common/http";
+import * as _ from 'lodash';
 import { catchError } from "rxjs/operators";
+export enum RoleUser {
+  admin = 'admin',
+  mod = 'mod',
+  provider = 'provider'
+}
 
 @Injectable({
   providedIn: "root"
 })
+
 export class AuthService {
   public userSignedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     true
@@ -63,9 +69,25 @@ export class AuthService {
     return false;
   }
 
+  currentUserName(): string {
+    let user = JSON.parse(localStorage.getItem(localStorageKey.USER));
+    return user.user.username;
+  }
+
   currentUserData(): string {
     let user = JSON.parse(localStorage.getItem(localStorageKey.USER));
-    console.log("hoc:", user);
-    return user.user.username;
+    return user.manager;
+  }
+
+  get isCurrentUserMod() {
+    return _.get(this.currentUserData(), 'role') === RoleUser.mod;
+  }
+
+  get isCurrentUserAdmin() {
+    return _.get(this.currentUserData(), 'role') === RoleUser.admin;
+  }
+
+  get isCurrentUserProvider() {
+    return _.get(this.currentUserData(), 'role') === RoleUser.provider;
   }
 }

@@ -33,7 +33,6 @@ export class ProductComponent implements OnInit {
 
     this.productService.getProduct().subscribe(res => {
       this.products = res;
-      console.log(this.products);
       this.dtTrigger.next();
     });
   }

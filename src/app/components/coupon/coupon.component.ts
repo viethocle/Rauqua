@@ -23,7 +23,6 @@ export class CouponComponent implements OnInit {
 
     this.couponservice.getCoupon().subscribe(res => {
       this.coupons = res;
-      console.log(this.coupons);
       this.dtTrigger.next();
     });
   }

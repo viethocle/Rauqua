@@ -56,7 +56,7 @@
     </a>
   </li>
 
-  <li routerLinkActive="active">
+  <li routerLinkActive="active" *ngIf="!isProvider">
     <a [routerLink]="['/user']">
       <i class="menu-icon fa fa-credit-card "></i>
       <span class="menu-text"> Người dùng </span>

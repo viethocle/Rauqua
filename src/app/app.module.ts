@@ -37,6 +37,9 @@ import { TooltipModule } from 'ngx-tooltip';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import {ToastModule} from 'ng6-toastr/ng2-toastr';
 import { HttpModule } from '@angular/http';
+import { AdminRouteGuard } from "./services/auth/admin-route.guard";
+import { ModRouteGuard } from "./services/auth/mod-route.guard";
+import { ProviderRouteGuard } from "./services/auth/provider-route.guard";
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -109,6 +112,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useClass: AppErrorHandler
     },
     AuthGuardService,
+    AdminRouteGuard,
+    ModRouteGuard,
+    ProviderRouteGuard
   ], 
   bootstrap: [AppComponent]
 })

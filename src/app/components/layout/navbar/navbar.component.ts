@@ -51,7 +51,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   getUsername(): string {
-    if (this.authService.currentUserData) {
+    if (this.authService.currentUserName) {
       let user = JSON.parse(localStorage.getItem(localStorageKey.USER));
       return user.manager.username;
     }

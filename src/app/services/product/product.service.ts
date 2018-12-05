@@ -27,7 +27,6 @@ export class ProductService {
       body: value,
       url: apiURL.product.post
     };
-    console.log(value)
     return this.dataService.post(resource).pipe(
       map(res => {
         return res.result;

@@ -23,7 +23,6 @@ export class AppComponent {
     this.authService.userSignedIn$.subscribe(data =>
       this.userSignedIn$.next(data)
     );
-    console.log(this.authService.userSignedIn$);
   }
 
   private onClickOutSideBar(e) {

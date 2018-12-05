@@ -72,7 +72,6 @@ export class UserService {
 
     return this.dataService.get(resource).pipe(
       map(res => {
-        console.log(res)
         return res.result
 
       })

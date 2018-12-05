@@ -122,7 +122,6 @@ export class UserComponent implements OnInit {
   }
 
   addUser(value: any) {
-    console.log("oke:", value);
     this.userService.createUser(value).subscribe(res => {
       this.users.unshift(res);
       this.toastr.success("Tạo mới thành công!");

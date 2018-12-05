@@ -45,7 +45,6 @@ export class ShopService {
 
     return this.dataService.put(resource).pipe(
       map(res => {
-        console.log(res)
         return res.result;
       })
     );

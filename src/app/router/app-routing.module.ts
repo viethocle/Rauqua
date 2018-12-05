@@ -14,6 +14,8 @@ import { OrderComponent } from '../components/order/order.component'
 import { PromotionComponent } from '../components/promotion/promotion.component'
 import { CouponComponent } from '../components/coupon/coupon.component'
 import { ShopComponent } from 'app/components/shop/shop.component';
+import { AdminRouteGuard } from 'app/services/auth/admin-route.guard';
+import { ModRouteGuard } from 'app/services/auth/mod-route.guard';
 
 const routes: Routes = [
   {
@@ -38,7 +40,7 @@ const routes: Routes = [
   {
     path: routePath.User,
     component: UserComponent,
-    canActivate: [AuthGuardService]
+    canActivate: [AuthGuardService, AdminRouteGuard, ModRouteGuard],
   },
   {
     path: routePath.Product,

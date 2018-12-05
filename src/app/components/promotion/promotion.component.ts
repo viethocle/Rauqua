@@ -23,7 +23,6 @@ export class PromotionComponent implements OnInit {
 
     this.promotionService.getPromotion().subscribe(res => {
       this.promotions = res;
-      console.log(this.promotions);
       this.dtTrigger.next();
     });
   }
