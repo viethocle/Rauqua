@@ -18,11 +18,11 @@
     <tbody>
       <tr *ngFor="let category of categories">
         <td>{{ category.id }}</td>
-        <td>{{ category.name }}</td>
+        <td><span (click)="openModalDetail(category)" class="editable editable-click">{{ category.name }}</span></td>
         <td>{{ category.position }}</td>
         <td><img src="{{ category.image }}" alt="" height="60"></td>
         <td>
-          <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}">
+          <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}" (click)="openModalEdit(category)">
             <i class="ace-icon fa fa-pencil bigger-120"></i>
           </button>
           <button class="btn btn-xs btn-danger" tooltip="{{ 'Xóa' }}"
@@ -44,6 +44,10 @@
     </app-input-field>
     <app-error-label [control]="form"></app-error-label>
 
+    <app-input-field [attribute]="'Vị trí sản phẩm'" [control]="form.get('position')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
     <h3>File upload</h3>
     <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput>
     <button (click)="fileInput.click()">Chọn ảnh</button>
@@ -52,5 +56,71 @@
   <bs-modal-footer>
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Hủy bỏ</button>
     <button id="btn-create-user" class="btn btn-primary add-product" [disabled]="form.invalid" (click)="createCategory()">Tạo mới</button>
+  </bs-modal-footer>
+</bs-modal>
+
+<bs-modal #modalEdit>
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Sửa loại sản phẩm</h4>
+  </bs-modal-header>
+  <bs-modal-body>
+    <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Vị trí sản phẩm'" [control]="form.get('position')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <h3>File upload</h3>
+    <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput>
+    <button (click)="fileInput.click()">Chọn ảnh</button>
+    <img [src]="url" height="50"> <br />
+  </bs-modal-body>
+  <bs-modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Hủy bỏ</button>
+    <button id="btn-create-user" class="btn btn-primary add-product" [disabled]="form.invalid" (click)="editCategory()">Thay đổi</button>
+  </bs-modal-footer>
+</bs-modal>
+
+<bs-modal #modalDetail cssClass="modal-lg">
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Chi tiết loại sản phẩm</h4>
+  </bs-modal-header>
+  <bs-modal-body>
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="dynamic-table_wrapper" class="table table-striped table-bordered
+    table-hover dataTable no-footer"
+      cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên</th>
+          <th>Thứ tự hiển thị</th>
+          <th>Ảnh</th>
+          <th class="sorting_disabled"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categoryDetail">
+          <td>{{ category.id }}</td>
+          <td>{{ category.name }}</td>
+          <td>{{ category.position }}</td>
+          <td><img src="{{ category.image }}" alt="" height="60"></td>
+          <td>
+            <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}" (click)="openModalEdit(category)">
+              <i class="ace-icon fa fa-pencil bigger-120"></i>
+            </button>
+            <button class="btn btn-xs btn-danger" tooltip="{{ 'Xóa' }}"
+            (click)="deleteCategory(category.id)">
+              <i class="ace-icon fa fa-trash-o bigger-120"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </bs-modal-body>
+  <bs-modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Hủy bỏ</button>
+    <button id="btn-create-user" class="btn btn-primary add-product" [disabled]="form.invalid" (click)="editCategory()">Thay đổi</button>
   </bs-modal-footer>
 </bs-modal>

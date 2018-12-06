@@ -12,6 +12,7 @@ import {
 import * as _ from "lodash";
 import { BsModalComponent } from "ng2-bs3-modal";
 import { ToastsManager } from "ng6-toastr";
+import { log } from "util";
 // import 'jquery';
 // import 'bootstrap';
 
@@ -22,12 +23,17 @@ import { ToastsManager } from "ng6-toastr";
 })
 export class CategotyComponent implements OnInit {
   @ViewChild("modal") modal: BsModalComponent;
+  @ViewChild("modalEdit") modalEdit: BsModalComponent;
+  @ViewChild("modalDetail") modalDetail: BsModalComponent;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   categories: Category[] = [];
   form: FormGroup;
   selectedFile: File = null;
-  url: any  = "https://image.freepik.com/free-photo/rows-of-colorful-energy-category_1156-662.jpg";
+  categoryDetail: any;
+  url: any =
+    "https://image.freepik.com/free-photo/rows-of-colorful-energy-category_1156-662.jpg";
+  category: any;
   constructor(
     private categoryService: CategoryService,
     private fb: FormBuilder,
@@ -60,6 +66,8 @@ export class CategotyComponent implements OnInit {
         "",
         Validators.compose([Validators.required, Validators.minLength(2)])
       ],
+      position: ["", Validators.compose([Validators.required])],
+      parent_id: 0
     });
   }
 
@@ -87,12 +95,47 @@ export class CategotyComponent implements OnInit {
     const formData: FormData = new FormData();
     formData.append("image", this.selectedFile, this.selectedFile.name);
     formData.append("name", this.form.value.name);
-    formData.append("parent_id", "0");
+    formData.append("position", this.form.value.position);
+    formData.append("parent_id", this.form.value.parent_id);
     this.categoryService.addCategory(formData).subscribe(res => {
       this.categories.unshift(res);
       this.toastr.success("Đã tạo cửa hàng thành công!");
       this.form.reset();
       this.modal.close();
     });
+  }
+
+  openModalEdit(category: any) {
+    this.form.reset();
+    this.form.patchValue({
+      name: category.name,
+      position: category.position,
+      parent_id: category.parent_id
+    });
+    this.category = category;
+    this.modalEdit.open();
+  }
+
+  editCategory() {
+    this.categoryService
+      .editCategory(this.category.id, this.form.value)
+      .subscribe(res => {
+        this.category.name = this.form.value.name;
+        this.category.position = this.form.value.position;
+        _.assign(
+          this.categories.find(t => t.id === this.category.id.id),
+          this.category
+        );
+        this.toastr.success("Cập nhật thành công!");
+        this.modalEdit.close();
+      });
+  }
+
+  openModalDetail(category: any) {
+    this.modalDetail.open();
+    this.categoryService.getListCategoryChildren(category.id).subscribe(res => {
+      this.categoryDetail = res.children;
+    });
+    
   }
 }

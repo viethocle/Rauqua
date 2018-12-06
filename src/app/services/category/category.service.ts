@@ -35,6 +35,30 @@ export class CategoryService {
     );
   }
 
+  editCategory(id: any, value: any):Observable<any> {
+    const resource = {
+      body: value,
+      url: apiURL.categoty.edit + id
+    };
+
+    return this.dataService.put(resource).pipe(
+      map(res => {
+        return res.result;
+      })
+    );
+  }
+
+  getListCategoryChildren(id: number): Observable<any> {
+    const resource = {
+      body: null,
+      url: apiURL.categoty.detail + id.toString()
+    };
+    return this.dataService.get(resource).pipe(
+      map(res => {
+        return res.result;
+      })
+    );
+  }
   deleteCategory(id: number): Observable<any> {
     const resource = {
       body: null,
