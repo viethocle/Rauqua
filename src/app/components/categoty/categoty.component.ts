@@ -31,6 +31,7 @@ export class CategotyComponent implements OnInit {
   form: FormGroup;
   selectedFile: File = null;
   categoryDetail: any;
+  currentCategory: any;
   url: any =
     "https://image.freepik.com/free-photo/rows-of-colorful-energy-category_1156-662.jpg";
   category: any;
@@ -91,12 +92,21 @@ export class CategotyComponent implements OnInit {
     }
   }
 
+  openModalCreate() {
+    this.modal.open();
+  }
+
   createCategory() {
     const formData: FormData = new FormData();
     formData.append("image", this.selectedFile, this.selectedFile.name);
     formData.append("name", this.form.value.name);
     formData.append("position", this.form.value.position);
-    formData.append("parent_id", this.form.value.parent_id);
+    if (this.currentCategory != null) {
+      formData.append("parent_id", this.currentCategory.id);
+    } else{
+      formData.append("parent_id", this.form.value.parent_id);
+    }
+    
     this.categoryService.addCategory(formData).subscribe(res => {
       this.categories.unshift(res);
       this.toastr.success("Đã tạo cửa hàng thành công!");
@@ -132,10 +142,21 @@ export class CategotyComponent implements OnInit {
   }
 
   openModalDetail(category: any) {
+    this.currentCategory = category
     this.modalDetail.open();
     this.categoryService.getListCategoryChildren(category.id).subscribe(res => {
       this.categoryDetail = res.children;
     });
-    
+  }
+
+  openMocalCategoryChildren() {
+    this.modalDetail.close();
+    this.openModalCreate();
+  }
+
+
+  openModalEditChildren(category: any) {
+    this.modalDetail.close();
+    this.openModalEdit(category);
   }
 }
