@@ -154,7 +154,6 @@ export class CategotyComponent implements OnInit {
     this.openModalCreate();
   }
 
-
   openModalEditChildren(category: any) {
     this.modalDetail.close();
     this.openModalEdit(category);
