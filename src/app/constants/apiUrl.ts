@@ -28,7 +28,8 @@ export const apiURL = {
   product: {
     all: "products",
     post: "products",
-    delete: "products/"
+    delete: "products/",
+    shop: "products?shop_id="
   },
   order: {
     all: "orders",

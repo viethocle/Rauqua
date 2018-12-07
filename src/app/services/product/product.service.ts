@@ -22,6 +22,18 @@ export class ProductService {
     );
   }
 
+  getProductShop(shopId: any): Observable<any> {
+    const resource = {
+      body: null,
+      url: apiURL.product.shop + shopId
+    };
+    return this.dataService.get(resource).pipe(
+      map(res => {
+        return res.result.data;
+      })
+    );
+  }
+
   postProduct(value: any): Observable<any> {
     const resource = {
       body: value,

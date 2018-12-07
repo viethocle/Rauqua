@@ -20,6 +20,7 @@ export class AdminRouteGuard implements CanActivate, CanLoad {
   ) { }
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+    console.log(this.authService.isCurrentUserAdmin)
     if (this.authService.isCurrentUserAdmin) {
       return true;
     }

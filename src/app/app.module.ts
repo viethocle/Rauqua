@@ -40,6 +40,8 @@ import { HttpModule } from '@angular/http';
 import { AdminRouteGuard } from "./services/auth/admin-route.guard";
 import { ModRouteGuard } from "./services/auth/mod-route.guard";
 import { ProviderRouteGuard } from "./services/auth/provider-route.guard";
+import { NgSelectModule } from '@ng-select/ng-select';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -73,6 +75,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToastModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    NgSelectModule,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,

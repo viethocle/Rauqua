@@ -40,7 +40,7 @@ const routes: Routes = [
   {
     path: routePath.User,
     component: UserComponent,
-    canActivate: [AuthGuardService, AdminRouteGuard, ModRouteGuard],
+    canActivate: [AuthGuardService, AdminRouteGuard],
   },
   {
     path: routePath.Product,

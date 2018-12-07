@@ -1,6 +1,6 @@
 <div id="main-product" class="col-md-12">
 
-  <div class="tableTools-container">
+  <div class="tableTools-container" *ngIf="isProvider">
     <button type="button" class="btn btn-primary create-product" (click)="modal.open()">Tạo mới sản phẩm</button>
   </div>
   <bs-modal #modal>
@@ -12,13 +12,9 @@
       </app-input-field>
       <app-error-label [control]="form"></app-error-label>
 
-      <app-input-field [attribute]="'Shop ID'" [control]="form.get('shop_id')">
-      </app-input-field>
-      <app-error-label [control]="form"></app-error-label>
-
-      <app-input-field [attribute]="'Category ID'" [control]="form.get('category_id')">
-      </app-input-field>
-      <app-error-label [control]="form"></app-error-label>
+      <div>Category</div>
+      <ng-select [items]="categories$" bindLabel="name" autofocus bindValue="id" [(ngModel)]="category_id">
+      </ng-select>
 
       <app-input-field [attribute]="'Describe'" [control]="form.get('describe')">
       </app-input-field>
@@ -36,27 +32,19 @@
       </app-input-field>
       <app-error-label [control]="form"></app-error-label>
 
-      <form [formGroup]="form">
-        <input type="date" name="imported_date" formControlName="imported_date">
-        <input type="date" name="expired_date" formControlName="expired_date">
-      </form>
-
-
-      <app-input-field [attribute]="'Active'" [control]="form.get('active')">
+      <app-input-field [attribute]="'Số ngày sử dụng'" [control]="form.get('number_expired')">
       </app-input-field>
       <app-error-label [control]="form"></app-error-label>
 
-
       <h3>File upload</h3>
       <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput>
-      <button (click)="fileInput.click()">Pick File</button>
-      <button (click)="onUpload()">Upload</button>
+      <button (click)="fileInput.click()">Chọn ảnh</button>
       <img [src]="url" height="50"> <br />
 
     </bs-modal-body>
     <bs-modal-footer>
       <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-      <button id="btn-create-user" class="btn btn-primary add-product" (click)="postProduct()">Create</button>
+      <button id="btn-create-user" class="btn btn-primary add-product" (click)="postProduct(form.value)">Create</button>
       <!-- [disabled]="form.invalid" -->
     </bs-modal-footer>
   </bs-modal>
@@ -66,7 +54,7 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Shop</th>
+        <th *ngIf="!isProvider">Shop</th>
         <th>Category</th>
         <th>Describe</th>
         <th>Price</th>
@@ -79,8 +67,10 @@
       <tr *ngFor="let product of products">
         <td>{{ product.id }}</td>
         <td>{{ product.name }}</td>
-        <td>{{ product.shop.name }}</td>
-        <td>{{ product.category.name }}</td>
+        <td *ngIf="!isProvider">{{ product.shop_id }}</td>
+        <td>{{ product.category_id }}</td>
+        <!-- <td>{{ product.shop.name }}</td>
+        <td>{{ product.category.name }}</td> -->
         <td>{{ product.describe}}</td>
         <td>{{ product.price }}</td>
         <td>{{ product.quantity }}</td>

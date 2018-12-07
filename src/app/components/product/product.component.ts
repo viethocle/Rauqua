@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { Subject } from "rxjs";
+import { Subject, Observable } from "rxjs";
 import { ProductService } from "../../services/product/product.service";
 import * as _ from "lodash";
 import { BsModalComponent } from "ng2-bs3-modal";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Category } from "../../models/category";
+import { log } from "util";
+import { AuthService } from "app/services/auth/auth.service";
+import { CategoryService } from "app/services/category/category.service";
 @Component({
   selector: "app-product",
   templateUrl: "./product.component.html",
@@ -19,9 +22,14 @@ export class ProductComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   products: any[] = [];
+  isProvider = this.authService.isCurrentUserProvider;
+  categories$: Observable<any[]>;
+  category_id: any;
   constructor(
     private productService: ProductService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private categoryService: CategoryService,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -31,10 +39,30 @@ export class ProductComponent implements OnInit {
       pageLength: 10
     };
 
-    this.productService.getProduct().subscribe(res => {
-      this.products = res;
-      this.dtTrigger.next();
+    this.getListCategory();
+    this.getListProducts();
+  }
+  getListCategory() {
+    this.categoryService.getCategory().subscribe(res => {
+      this.categories$ = res;
+      console.log(this.categories$);
     });
+  }
+
+  getListProducts() {
+    if (this.isProvider) {
+      this.productService.getProductShop(151).subscribe(res => {
+        this.products = res;
+        console.log(this.products);
+        this.dtTrigger.next();
+      });
+    } else {
+      this.productService.getProduct().subscribe(res => {
+        this.products = res;
+        console.log(this.products);
+        this.dtTrigger.next();
+      });
+    }
   }
 
   buildForm() {
@@ -49,10 +77,8 @@ export class ProductComponent implements OnInit {
       price: [0, Validators.required],
       origin: ["da nang", Validators.required],
       quantity: [0, Validators.required],
-      imported_date: ["", Validators.required],
-      expired_date: ["", Validators.required],
-      image: ["", Validators.required],
-      active: ["", Validators.required]
+      number_expired: ["", Validators.required],
+      image: ["", Validators.required]
     });
   }
 
@@ -70,16 +96,20 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  onUpload() {
-    this.form.patchValue({
-      image: this.onFileSelected
-    });
-  }
 
-  postProduct() {
-    this.productService.postProduct(this.form.value).subscribe(res => {
-      console.log(res)
-    })
+  postProduct(value: any) {
+    const formData: FormData = new FormData();
+    formData.append("image", this.selectedFile, this.selectedFile.name);
+    formData.append("name", value.name);
+    formData.append("category_id", this.category_id);
+    formData.append("describe", value.describe);
+    formData.append("price", value.price);
+    formData.append("origin", value.origin);
+    formData.append("quantity", value.quantity);
+    formData.append("number_expired", value.number_expired);
+    this.productService.postProduct(formData).subscribe(res => {
+      console.log(res);
+    });
   }
 
   deleteProduct(id: number) {
