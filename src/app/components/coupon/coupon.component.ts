@@ -21,17 +21,24 @@ export class CouponComponent implements OnInit {
       pageLength: 10
     };
 
+    this.getListCoupon();
+  }
+
+  getListCoupon() {
     this.couponservice.getCoupon().subscribe(res => {
       this.coupons = res;
       this.dtTrigger.next();
     });
   }
 
+  openModalAddCoupon() {}
+
   deleteUser(id: number) {
     this.couponservice.deleteCoupon(id).subscribe(res => {
       this.coupons = _.reject(this.coupons, ["id", id]);
     });
   }
+  
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

@@ -21,11 +21,17 @@ export class PromotionComponent implements OnInit {
       pageLength: 10
     };
 
+    this.getListPromotion();
+  }
+
+  getListPromotion() {
     this.promotionService.getPromotion().subscribe(res => {
       this.promotions = res;
       this.dtTrigger.next();
     });
   }
+  
+  openModalAddPromotion() {}
 
   deletePromotion(id: number) {
     this.promotionService.deletePromotion(id).subscribe(res => {

@@ -15,6 +15,7 @@ import { CategoryService } from "app/services/category/category.service";
 })
 export class ProductComponent implements OnInit {
   @ViewChild("modal") modal: BsModalComponent;
+  @ViewChild("modalEdit") modalEdit: BsModalComponent;
   form: FormGroup;
   selectedFile: File = null;
   url: any =
@@ -120,5 +121,13 @@ export class ProductComponent implements OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  openModalEdit(){
+    this.modalEdit.open()
+  }
+  
+  editProduct(value: any){
+
   }
 }

@@ -3,64 +3,21 @@
   <div class="tableTools-container" *ngIf="isProvider">
     <button type="button" class="btn btn-primary create-product" (click)="modal.open()">Tạo mới sản phẩm</button>
   </div>
-  <bs-modal #modal>
-    <bs-modal-header [showDismiss]="true">
-      <h4 class="modal-title">Tạo mới sản phẩm</h4>
-    </bs-modal-header>
-    <bs-modal-body>
-      <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
-      </app-input-field>
-      <app-error-label [control]="form"></app-error-label>
-
-      <div>Category</div>
-      <ng-select [items]="categories$" bindLabel="name" autofocus bindValue="id" [(ngModel)]="category_id">
-      </ng-select>
-
-      <app-input-field [attribute]="'Describe'" [control]="form.get('describe')">
-      </app-input-field>
-      <app-error-label [control]="form"></app-error-label>
-
-      <app-input-field [attribute]="'Giá'" [control]="form.get('price')">
-      </app-input-field>
-      <app-error-label [control]="form"></app-error-label>
-
-      <app-input-field [attribute]="'Nguồn gốc'" [control]="form.get('origin')">
-      </app-input-field>
-      <app-error-label [control]="form"></app-error-label>
-
-      <app-input-field [attribute]="'Số lượng'" [control]="form.get('quantity')">
-      </app-input-field>
-      <app-error-label [control]="form"></app-error-label>
-
-      <app-input-field [attribute]="'Số ngày sử dụng'" [control]="form.get('number_expired')">
-      </app-input-field>
-      <app-error-label [control]="form"></app-error-label>
-
-      <h3>File upload</h3>
-      <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput>
-      <button (click)="fileInput.click()">Chọn ảnh</button>
-      <img [src]="url" height="50"> <br />
-
-    </bs-modal-body>
-    <bs-modal-footer>
-      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-      <button id="btn-create-user" class="btn btn-primary add-product" (click)="postProduct(form.value)">Create</button>
-      <!-- [disabled]="form.invalid" -->
-    </bs-modal-footer>
-  </bs-modal>
-
-  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+ 
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="dynamic-table_wrapper" class="table table-striped table-bordered
+  table-hover dataTable no-footer"
+    cellspacing="0" width="100%">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th *ngIf="!isProvider">Shop</th>
-        <th>Category</th>
-        <th>Describe</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Origin</th>
-        <th>Action</th>
+        <th>Tên sản phẩm</th>
+        <th *ngIf="!isProvider">Tên shop</th>
+        <th>Loại sản phẩm</th>
+        <th>Thông tin</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Xuất sứ</th>
+        <th>hoạt động</th>
       </tr>
     </thead>
     <tbody>
@@ -75,11 +32,107 @@
         <td>{{ product.price }}</td>
         <td>{{ product.quantity }}</td>
         <td>{{ product.origin }}</td>
-        <td>
-          <button> edit </button>
-          <button (click)="deleteProduct(product.id)"> delete </button>
+        <td class="center">
+          <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}" (click)="openModalEdit(product)">
+            <i class="ace-icon fa fa-pencil bigger-120"></i>
+          </button>
+          <button class="btn btn-xs btn-danger" tooltip="{{ 'Xóa' }}" (click)="deleteProduct(product.id)">
+            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+<bs-modal #modal>
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Tạo mới sản phẩm</h4>
+  </bs-modal-header>
+  <bs-modal-body>
+    <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <div>Category</div>
+    <ng-select [items]="categories$" bindLabel="name" autofocus bindValue="id" [(ngModel)]="category_id">
+    </ng-select>
+
+    <app-input-field [attribute]="'Describe'" [control]="form.get('describe')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Giá'" [control]="form.get('price')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Nguồn gốc'" [control]="form.get('origin')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Số lượng'" [control]="form.get('quantity')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Số ngày sử dụng'" [control]="form.get('number_expired')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <h3>File upload</h3>
+    <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput>
+    <button (click)="fileInput.click()">Chọn ảnh</button>
+    <img [src]="url" height="50"> <br />
+
+  </bs-modal-body>
+  <bs-modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Hủy bỏ</button>
+    <button id="btn-create-user" class="btn btn-primary add-product" (click)="postProduct(form.value)">Tạo mới</button>
+    <!-- [disabled]="form.invalid" -->
+  </bs-modal-footer>
+</bs-modal>
+
+
+<bs-modal #modalEdit>
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Chỉnh sửa sản phẩm</h4>
+  </bs-modal-header>
+  <bs-modal-body>
+    <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <div>Category</div>
+    <ng-select [items]="categories$" bindLabel="name" autofocus bindValue="id" [(ngModel)]="category_id">
+    </ng-select>
+
+    <app-input-field [attribute]="'Describe'" [control]="form.get('describe')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Giá'" [control]="form.get('price')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Nguồn gốc'" [control]="form.get('origin')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Số lượng'" [control]="form.get('quantity')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Số ngày sử dụng'" [control]="form.get('number_expired')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <h3>File upload</h3>
+    <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput>
+    <button (click)="fileInput.click()">Chọn ảnh</button>
+    <img [src]="url" height="50"> <br />
+
+  </bs-modal-body>
+  <bs-modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Hủy bỏ</button>
+    <button id="btn-create-user" class="btn btn-primary add-product" (click)="editProduct(form.value)">Chỉnh sửa</button>
+    <!-- [disabled]="form.invalid" -->
+  </bs-modal-footer>
+</bs-modal>
