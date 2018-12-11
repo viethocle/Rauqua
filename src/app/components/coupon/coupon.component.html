@@ -22,14 +22,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let coupon of coupons">
-        <td>{{ coupon.id }}</td>
-        <td>{{ coupon.code }}</td>
-        <td>{{ coupon.percents }} %</td>
-        <td>{{ coupon.start_date}}</td>
-        <td>{{ coupon.end_date}}</td>
-        <td>{{ coupon.times}}</td>
+        <td>{{ coupon?.id }}</td>
+        <td>{{ coupon?.code }}</td>
+        <td>{{ coupon?.percents }} %</td>
+        <td>{{ coupon?.start_date}}</td>
+        <td>{{ coupon?.end_date}}</td>
+        <td>{{ coupon?.times}}</td>
         <td>
-          <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}">
+          <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}" (click)="openModalEditCoupon(coupon)">
             <i class="ace-icon fa fa-pencil bigger-120"></i>
           </button>
           <button class="btn btn-xs btn-danger" tooltip="{{ 'Xóa' }}" (click)="deleteCoupon(coupon.id)">
@@ -40,3 +40,118 @@
     </tbody>
   </table>
 </div>
+
+
+<bs-modal #modal cssClass="modal-lg">
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Tạo mới mã giảm giá</h4>
+  </bs-modal-header>
+
+  <bs-modal-body>
+    <app-input-field
+      [attribute]="'Mã giảm giá'"
+      [control]="form.get('code')"
+    >
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Phần trăm'" [control]="form.get('percents')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <div>Ngày bắt đầu</div>
+    <input type="date" [(ngModel)]="startDate" />
+
+    <div>Ngày ngày kết thúc</div>
+    <input type="date" [(ngModel)]="endDate" />
+
+
+    <app-input-field
+      [attribute]="'Số lượng'"
+      [control]="form.get('times')"
+    >
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <h3>File upload</h3>
+    <input
+      style="display: none"
+      type="file"
+      (change)="onFileSelected($event)"
+      #fileInput
+    />
+    <button (click)="fileInput.click()">Chọn ảnh</button>
+    <img [src]="url" height="50" /> <br />
+  </bs-modal-body>
+
+  <bs-modal-footer>
+    <button
+      type="button"
+      class="btn btn-default"
+      data-dismiss="modal"
+      (click)="modal.dismiss()"
+    >
+      {{ "Hủy bỏ" }}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="addCoupon()">
+      {{ "Tạo Mới" }}
+    </button>
+  </bs-modal-footer>
+</bs-modal>
+
+<bs-modal #modalEdit cssClass="modal-lg">
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Chỉnh sửa mã giảm giá</h4>
+  </bs-modal-header>
+
+  <bs-modal-body>
+    <app-input-field
+      [attribute]="'Mã giảm giá'"
+      [control]="form.get('code')"
+    >
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Phần trăm'" [control]="form.get('percents')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <div>Ngày bắt đầu</div>
+    <input type="date" [(ngModel)]="startDate" />
+
+    <div>Ngày ngày kết thúc</div>
+    <input type="date" [(ngModel)]="endDate" />
+
+
+    <app-input-field
+      [attribute]="'Số lượng'"
+      [control]="form.get('times')"
+    >
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <h3>File upload</h3>
+    <input
+      style="display: none"
+      type="file"
+      (change)="onFileSelected($event)"
+      #fileInput
+    />
+    <button (click)="fileInput.click()">Chọn ảnh</button>
+    <img [src]="url" height="50" /> <br />
+  </bs-modal-body>
+
+  <bs-modal-footer>
+    <button
+      type="button"
+      class="btn btn-default"
+      data-dismiss="modal"
+      (click)="modalEdit.dismiss()"
+    >
+      {{ "Hủy bỏ" }}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="editCoupon()">
+      {{ "Tạo Mới" }}
+    </button>
+  </bs-modal-footer>
+</bs-modal>

@@ -46,6 +46,18 @@ export class ProductService {
     );
   }
 
+  editProduct(product_id: any, value: any): Observable<any> {
+    const resource = {
+      body: value,
+      url: apiURL.product.edit + product_id
+    };
+    return this.dataService.put(resource).pipe(
+      map(res => {
+        return res.result;
+      })
+    );
+  }
+
   deleteProduct(id: number): Observable<any> {
     const resource = {
       body: null,

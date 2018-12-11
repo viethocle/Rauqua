@@ -90,4 +90,11 @@ export class AuthService {
   get isCurrentUserProvider() {
     return _.get(this.currentUserData(), 'role') === RoleUser.provider;
   }
+
+  get shopInfor(): any {
+    if (this.isCurrentUserProvider) {
+      let user = JSON.parse(localStorage.getItem(localStorageKey.USER));
+      return user.user.shop;
+    }
+  }
 }

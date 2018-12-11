@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 import { ProductService } from "../../services/product/product.service";
 import * as _ from "lodash";
@@ -8,6 +8,7 @@ import { Category } from "../../models/category";
 import { log } from "util";
 import { AuthService } from "app/services/auth/auth.service";
 import { CategoryService } from "app/services/category/category.service";
+import { ToastsManager } from "ng6-toastr";
 @Component({
   selector: "app-product",
   templateUrl: "./product.component.html",
@@ -26,12 +27,18 @@ export class ProductComponent implements OnInit {
   isProvider = this.authService.isCurrentUserProvider;
   categories$: Observable<any[]>;
   category_id: any;
+  product: any;
+  currentShop: any;
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
     private categoryService: CategoryService,
-    public authService: AuthService
-  ) {}
+    public authService: AuthService,
+    public toastr: ToastsManager,
+    vcr: ViewContainerRef
+  ) {
+    this.toastr.setRootViewContainerRef(vcr);
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -43,6 +50,7 @@ export class ProductComponent implements OnInit {
     this.getListCategory();
     this.getListProducts();
   }
+
   getListCategory() {
     this.categoryService.getCategory().subscribe(res => {
       this.categories$ = res;
@@ -52,7 +60,8 @@ export class ProductComponent implements OnInit {
 
   getListProducts() {
     if (this.isProvider) {
-      this.productService.getProductShop(151).subscribe(res => {
+      this.currentShop = this.authService.shopInfor();
+      this.productService.getProductShop(this.currentShop.id).subscribe(res => {
         this.products = res;
         console.log(this.products);
         this.dtTrigger.next();
@@ -78,8 +87,7 @@ export class ProductComponent implements OnInit {
       price: [0, Validators.required],
       origin: ["da nang", Validators.required],
       quantity: [0, Validators.required],
-      number_expired: ["", Validators.required],
-      image: ["", Validators.required]
+      number_expired: ["", Validators.required]
     });
   }
 
@@ -97,11 +105,11 @@ export class ProductComponent implements OnInit {
     }
   }
 
-
   postProduct(value: any) {
     const formData: FormData = new FormData();
     formData.append("image", this.selectedFile, this.selectedFile.name);
     formData.append("name", value.name);
+    formData.append("shop_id", this.currentShop.id);
     formData.append("category_id", this.category_id);
     formData.append("describe", value.describe);
     formData.append("price", value.price);
@@ -109,8 +117,10 @@ export class ProductComponent implements OnInit {
     formData.append("quantity", value.quantity);
     formData.append("number_expired", value.number_expired);
     this.productService.postProduct(formData).subscribe(res => {
-      console.log(res);
+      this.products.unshift(res);
+      this.toastr.success("Tạo mới thành công!");
     });
+    this.modal.close();
   }
 
   deleteProduct(id: number) {
@@ -118,16 +128,32 @@ export class ProductComponent implements OnInit {
       this.products = _.reject(this.products, ["id", id]);
     });
   }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 
-  openModalEdit(){
-    this.modalEdit.open()
+  openModalEdit(product: any) {
+    this.modalEdit.open();
+    this.product = product;
+    this.form.patchValue({
+      name: product.name,
+      shop_id: product.shop_id,
+      category_id: product.category_id,
+      describe: product.describe,
+      price: product.price,
+      origin: product.origin,
+      quantity: product.quantity,
+      number_expired: product.number_expired
+    });
   }
-  
-  editProduct(value: any){
 
+  editProduct(value: any) {
+    value = _.pickBy(value);
+    this.productService.editProduct(this.product.id, value).subscribe(res => {
+      this.toastr.success("Chỉnh sửa thành công!");
+    });
+    this.modalEdit.close();
   }
 }

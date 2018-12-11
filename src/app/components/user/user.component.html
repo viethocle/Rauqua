@@ -20,11 +20,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of users">
-        <td>{{ user.id }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.address }}</td>
-        <td>{{ user.role }}</td>
+        <td>{{ user?.id }}</td>
+        <td>{{ user?.username }}</td>
+        <td>{{ user?.email }}</td>
+        <td>{{ user?.address }}</td>
+        <td>{{ user?.role }}</td>
         <td class="center">
           <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}" (click)="openModalEdit(user)">
             <i class="ace-icon fa fa-pencil bigger-120"></i>

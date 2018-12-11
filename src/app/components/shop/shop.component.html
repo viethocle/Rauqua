@@ -21,12 +21,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let shop of shops">
-        <td>{{ shop.id }}</td>
-        <td>{{ shop.name }}</td>
-        <td> <img src="{{ shop.image }}" alt="" height="60"> </td>
-        <td>{{ shop.address }}</td>
-        <td>{{ shop.provider.username }}</td>
-        <td>{{ shop.phone }}</td>
+        <td>{{ shop?.id }}</td>
+        <td>{{ shop?.name }}</td>
+        <td> <img src="{{ shop?.image }}" alt="" height="60"> </td>
+        <td>{{ shop?.address }}</td>
+        <td>{{ shop?.provider?.username }}</td>
+        <td>{{ shop?.phone }}</td>
         <td class="center">
           <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}" (click)="openModalEditShop(shop)">
             <i class="ace-icon fa fa-pencil bigger-120"></i>

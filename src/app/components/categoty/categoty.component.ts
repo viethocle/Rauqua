@@ -158,4 +158,5 @@ export class CategotyComponent implements OnInit {
     this.modalDetail.close();
     this.openModalEdit(category);
   }
+
 }

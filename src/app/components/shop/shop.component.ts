@@ -67,6 +67,7 @@ export class ShopComponent implements OnInit {
     this.getShops();
     this.getProvider();
   }
+  
   buildForm() {
     this.form = this.fb.group({
       name: ["", Validators.compose([Validators.required])],

@@ -21,6 +21,30 @@ export class PromotionService {
       })
     );
   }
+  
+  addPromotion(value: any): Observable<any> {
+    const resource = {
+      body: value,
+      url: apiURL.promotion.create
+    };
+    return this.dataService.post(resource).pipe(
+      map(res => {
+        return res.result;
+      })
+    );
+  }
+
+  editPromotion(promotionId: any, value: any): Observable<any> {
+    const resource = {
+      body: value,
+      url: apiURL.promotion.edit + promotionId
+    };
+    return this.dataService.post(resource).pipe(
+      map(res => {
+        return res.result;
+      })
+    );
+  }
 
   deletePromotion(id: number): Observable<any> {
     const resource = {

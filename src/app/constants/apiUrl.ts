@@ -29,6 +29,7 @@ export const apiURL = {
     all: "products",
     post: "products",
     delete: "products/",
+    edit: "products/",
     shop: "products?shop_id="
   },
   order: {
@@ -37,10 +38,14 @@ export const apiURL = {
   },
   promotion: {
     all: "promotions",
-    delete: "promotions/"
+    create: "promotions",
+    delete: "promotions/",
+    edit: "promotions/"
   },
   coupon: {
     all: "coupons",
+    edit: "coupons/",
+    create: "coupons",
     delete: "coupons/"
   },
   shop: {

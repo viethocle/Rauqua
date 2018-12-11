@@ -1,13 +1,23 @@
 <div id="main-product" class="col-md-12">
   <div class="tableTools-container">
-    <button class="create-order btn btn-primary" (click)="openModalAddPromotion()">
+    <button
+      class="create-order btn btn-primary"
+      (click)="openModalAddPromotion()"
+    >
       Tạo mới đợt khuyến mãi
     </button>
   </div>
 
-  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="dynamic-table_wrapper" class="table table-striped table-bordered
+  <table
+    datatable
+    [dtOptions]="dtOptions"
+    [dtTrigger]="dtTrigger"
+    id="dynamic-table_wrapper"
+    class="table table-striped table-bordered
   table-hover dataTable no-footer"
-    cellspacing="0" width="100%">
+    cellspacing="0"
+    width="100%"
+  >
     <thead>
       <tr>
         <th>ID</th>
@@ -20,16 +30,24 @@
     </thead>
     <tbody>
       <tr *ngFor="let promotion of promotions">
-        <td>{{ promotion.id }}</td>
-        <td>{{ promotion.name }}</td>
-        <td>{{ promotion.start_date }}</td>
-        <td>{{ promotion.end_date }}</td>
-        <td><img src="{{ promotion.image }}" alt="" height="60"></td>
+        <td>{{ promotion?.id }}</td>
+        <td>{{ promotion?.name }}</td>
+        <td>{{ promotion?.start_date }}</td>
+        <td>{{ promotion?.end_date }}</td>
+        <td><img src="{{ promotion?.image }}" alt="" height="60" /></td>
         <td>
-          <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}">
+          <button
+            class="btn btn-xs btn-info"
+            tooltip="{{ 'Sửa'}}"
+            (click)="openModalEditPromotion(promotion)"
+          >
             <i class="ace-icon fa fa-pencil bigger-120"></i>
           </button>
-          <button class="btn btn-xs btn-danger" tooltip="{{ 'Xóa' }}" (click)="deletePromotion(promotion.id)">
+          <button
+            class="btn btn-xs btn-danger"
+            tooltip="{{ 'Xóa' }}"
+            (click)="deletePromotion(promotion.id)"
+          >
             <i class="ace-icon fa fa-trash-o bigger-120"></i>
           </button>
         </td>
@@ -37,3 +55,102 @@
     </tbody>
   </table>
 </div>
+
+<bs-modal #modal cssClass="modal-lg">
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Tạo mới đợt khuyến mãi</h4>
+  </bs-modal-header>
+
+  <bs-modal-body>
+    <app-input-field
+      [attribute]="'Tên đợt khuyến mãi'"
+      [control]="form.get('name')"
+    >
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Phần trăm'" [control]="form.get('percents')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <div>Ngày bắt đầu</div>
+    <input type="date" [(ngModel)]="startDate" />
+
+    <div>Ngày ngày kết thúc</div>
+    <input type="date" [(ngModel)]="endDate" />
+
+    <h3>File upload</h3>
+    <input
+      style="display: none"
+      type="file"
+      (change)="onFileSelected($event)"
+      #fileInput
+    />
+    <button (click)="fileInput.click()">Chọn ảnh</button>
+    <img [src]="url" height="50" /> <br />
+  </bs-modal-body>
+
+  <bs-modal-footer>
+    <button
+      type="button"
+      class="btn btn-default"
+      data-dismiss="modal"
+      (click)="modalCreate.dismiss()"
+    >
+      {{ "Hủy bỏ" }}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="addPromotion()">
+      {{ "Tạo Mới" }}
+    </button>
+  </bs-modal-footer>
+</bs-modal>
+
+
+<bs-modal #modalEdit cssClass="modal-lg">
+  <bs-modal-header [showDismiss]="true">
+    <h4 class="modal-title">Chỉnh sửa đợt khuyến mãi</h4>
+  </bs-modal-header>
+
+  <bs-modal-body>
+    <app-input-field
+      [attribute]="'Tên đợt khuyến mãi'"
+      [control]="form.get('name')"
+    >
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <app-input-field [attribute]="'Phần trăm'" [control]="form.get('percents')">
+    </app-input-field>
+    <app-error-label [control]="form"></app-error-label>
+
+    <div>Ngày bắt đầu</div>
+    <input type="date" [(ngModel)]="startDate" />
+
+    <div>Ngày ngày kết thúc</div>
+    <input type="date" [(ngModel)]="endDate" />
+
+    <h3>File upload</h3>
+    <input
+      style="display: none"
+      type="file"
+      (change)="onFileSelected($event)"
+      #fileInput
+    />
+    <button (click)="fileInput.click()">Chọn ảnh</button>
+    <img [src]="url" height="50" /> <br />
+  </bs-modal-body>
+
+  <bs-modal-footer>
+    <button
+      type="button"
+      class="btn btn-default"
+      data-dismiss="modal"
+      (click)="modalEdit.dismiss()"
+    >
+      {{ "Hủy bỏ" }}
+    </button>
+    <button type="button" class="btn btn-primary" (click)="editPromotion()">
+      {{ "Chỉnh sửa" }}
+    </button>
+  </bs-modal-footer>
+</bs-modal>
