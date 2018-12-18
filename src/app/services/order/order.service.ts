@@ -20,6 +20,18 @@ export class OrderService {
       })
     );
   }
+  updateOrder(order: any): Observable<any> {
+    let value = "?processing_status=" + order.process_status.id  + "&payment_status=" + order.processing_status 
+    const resource = {
+      body: null,
+      url: apiURL.order.update + order.id + value
+    };
+    return this.dataService.put(resource).pipe(
+      map(res => {
+        return res;
+      })
+    );
+  }
 
   getUrlGetOrderFromConfparam(configPagination: any): string {
     return (

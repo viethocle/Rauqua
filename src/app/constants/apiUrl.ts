@@ -34,7 +34,8 @@ export const apiURL = {
   },
   order: {
     all: "orders",
-    delete: "orders/"
+    delete: "orders/",
+    update: "orders/"
   },
   promotion: {
     all: "promotions",
