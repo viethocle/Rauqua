@@ -94,7 +94,7 @@ export class AuthService {
   get shopInfor(): any {
     if (this.isCurrentUserProvider) {
       let user = JSON.parse(localStorage.getItem(localStorageKey.USER));
-      return user.user.shop;
+      return user.manager.shop;
     }
   }
 }

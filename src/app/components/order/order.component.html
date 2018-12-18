@@ -15,9 +15,9 @@
     <tbody>
       <tr *ngFor="let order of orders">
         <td>{{ order?.id }}</td>
-        <td>{{ order?.user.fullname }}</td>
-        <td>{{ order?.delivery_time }}</td>
-        <td>{{ order?.processing_status }}</td>
+        <td>{{ order?.user?.fullname }}</td>
+        <td>{{ order?.delivery_time | date}}</td>
+        <td>{{ order?.process_status?.name }}</td>
         <td>{{ order?.payment_status}}</td>
         <td class="center">
           <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}" >

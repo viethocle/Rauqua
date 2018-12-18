@@ -1,5 +1,12 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
-import { Subject, Observable } from "rxjs";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  AfterContentInit,
+  AfterViewInit
+} from "@angular/core";
+import { Subject, Observable, fromEvent } from "rxjs";
 import { ProductService } from "../../services/product/product.service";
 import * as _ from "lodash";
 import { BsModalComponent } from "ng2-bs3-modal";
@@ -9,44 +16,66 @@ import { log } from "util";
 import { AuthService } from "app/services/auth/auth.service";
 import { CategoryService } from "app/services/category/category.service";
 import { ToastsManager } from "ng6-toastr";
+import { ActivatedRoute, Router, Params } from "@angular/router";
+import { debounceTime, map } from "rxjs/operators";
 @Component({
   selector: "app-product",
   templateUrl: "./product.component.html",
   styleUrls: ["./product.component.css"]
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, AfterViewInit {
   @ViewChild("modal") modal: BsModalComponent;
   @ViewChild("modalEdit") modalEdit: BsModalComponent;
   form: FormGroup;
   selectedFile: File = null;
   url: any =
     "https://image.freepik.com/free-photo/rows-of-colorful-energy-category_1156-662.jpg";
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
   products: any[] = [];
   isProvider = this.authService.isCurrentUserProvider;
   categories$: Observable<any[]>;
   category_id: any;
+  keyUpSearch = new Subject<string>();
   product: any;
+  currentPage = 1;
+  currentSearch = "";
+  showCount: number = 10;
   currentShop: any;
+  public configPagination = {
+    id: "server",
+    itemsPerPage: 10,
+    currentPage: 1,
+    totalItems: 100,
+    keyword: ""
+  };
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
     private categoryService: CategoryService,
     public authService: AuthService,
     public toastr: ToastsManager,
+    private route: ActivatedRoute,
+    private router: Router,
     vcr: ViewContainerRef
   ) {
     this.toastr.setRootViewContainerRef(vcr);
   }
+  ngAfterViewInit() {
+    const inputSearch = document.getElementById("search-product");
+    const inputSearch$ = fromEvent(inputSearch, "keyup")
+      .pipe(
+        map((i: any) => i.currentTarget.value),
+        debounceTime(500)
+      )
+      .subscribe(value => {
+        {
+          this.configPagination.keyword = value;
+          this.getListProducts();
+        }
+      });
+  }
 
   ngOnInit() {
     this.buildForm();
-    this.dtOptions = {
-      pagingType: "full_numbers",
-      pageLength: 10
-    };
-
     this.getListCategory();
     this.getListProducts();
   }
@@ -54,25 +83,39 @@ export class ProductComponent implements OnInit {
   getListCategory() {
     this.categoryService.getCategory().subscribe(res => {
       this.categories$ = res;
-      console.log(this.categories$);
     });
   }
 
   getListProducts() {
     if (this.isProvider) {
-      this.currentShop = this.authService.shopInfor();
-      this.productService.getProductShop(this.currentShop.id).subscribe(res => {
-        this.products = res;
-        console.log(this.products);
-        this.dtTrigger.next();
-      });
+      this.currentShop = this.authService.shopInfor;
+      if (this.currentShop == null) {
+        this.products = null;
+      } else {
+        this.productService
+          .getProductShop(this.currentShop.id, this.configPagination)
+          .subscribe(res => {
+            this.assignAfterGetProduct(res);
+          });
+      }
     } else {
-      this.productService.getProduct().subscribe(res => {
-        this.products = res;
-        console.log(this.products);
-        this.dtTrigger.next();
+      this.productService.getProduct(this.configPagination).subscribe(res => {
+        this.assignAfterGetProduct(res);
       });
     }
+  }
+
+  assignAfterGetProduct(res: any) {
+    this.products = res.data;
+    this.configPagination.totalItems = res.paginator.total;
+  }
+  onChangeCount($event) {
+    this.getListProducts();
+  }
+
+  getPage(page: number) {
+    this.configPagination.currentPage = page;
+    this.getListProducts();
   }
 
   buildForm() {
@@ -129,11 +172,6 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
-  }
-
   openModalEdit(product: any) {
     this.modalEdit.open();
     this.product = product;
@@ -145,7 +183,7 @@ export class ProductComponent implements OnInit {
       price: product.price,
       origin: product.origin,
       quantity: product.quantity,
-      number_expired: product.number_expired
+      number_expired: 5
     });
   }
 

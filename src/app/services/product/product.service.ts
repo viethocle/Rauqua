@@ -10,26 +10,41 @@ import { Observable } from "rxjs";
 export class ProductService {
   constructor(private dataService: DataService) {}
 
-  getProduct(): Observable<any> {
+  getProduct(configPagination: any): Observable<any> {
     const resource = {
       body: null,
-      url: apiURL.product.all
+      url:
+        apiURL.product.all +
+        this.getUrlGetProductFromConfparam(configPagination)
     };
-    return this.dataService.get(resource).pipe(
-      map(res => {
-        return res.result.data;
-      })
-    );
+    return this.getProductWithPage(resource);
   }
 
-  getProductShop(shopId: any): Observable<any> {
+  getProductShop(shopId: any, configPagination: any): Observable<any> {
     const resource = {
       body: null,
-      url: apiURL.product.shop + shopId
+      url:
+        apiURL.product.shop +
+        shopId +
+        this.getUrlGetProductFromConfparam(configPagination)
     };
+    return this.getProductWithPage(resource);
+  }
+
+  getUrlGetProductFromConfparam(configPagination: any): string {
+    return (
+      "?perpage=" +
+      configPagination.itemsPerPage +
+      "&page=" +
+      configPagination.currentPage +
+      "&keyword=" +
+      configPagination.keyword
+    );
+  }
+  getProductWithPage(resource: any): Observable<any> {
     return this.dataService.get(resource).pipe(
       map(res => {
-        return res.result.data;
+        return res.result;
       })
     );
   }
