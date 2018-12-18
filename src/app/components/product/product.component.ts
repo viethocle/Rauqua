@@ -34,12 +34,9 @@ export class ProductComponent implements OnInit, AfterViewInit {
   isProvider = this.authService.isCurrentUserProvider;
   categories$: Observable<any[]>;
   category_id: any;
-  keyUpSearch = new Subject<string>();
   product: any;
-  currentPage = 1;
-  currentSearch = "";
-  showCount: number = 10;
   currentShop: any;
+  keyUpSearch = new Subject<string>();
   public configPagination = {
     id: "server",
     itemsPerPage: 10,

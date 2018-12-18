@@ -9,15 +9,26 @@ import { Observable } from "rxjs";
 export class OrderService {
   constructor(private dataService: DataService) {}
 
-  getOrder(): Observable<any> {
+  getOrder(configPagination: any): Observable<any> {
     const resource = {
       body: null,
-      url: apiURL.order.all
+      url: apiURL.order.all + this.getUrlGetOrderFromConfparam(configPagination)
     };
     return this.dataService.get(resource).pipe(
       map(res => {
-        return res.data;
+        return res;
       })
+    );
+  }
+
+  getUrlGetOrderFromConfparam(configPagination: any): string {
+    return (
+      "?perpage=" +
+      configPagination.itemsPerPage +
+      "&page=" +
+      configPagination.currentPage +
+      "&keyword=" +
+      configPagination.keyword
     );
   }
 
