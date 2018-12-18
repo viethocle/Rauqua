@@ -102,7 +102,7 @@ export class OrderComponent implements OnInit, AfterViewInit {
     this.orders.forEach(e => {
       if (e.id == order.id) {
         e.payment_status = statusPayment;
-        e.processing_status = this.statusPaymentID[statusPayment];
+        e.payment_method_id = this.statusPaymentID[statusPayment];
       }
     });
     this.updateOrder(order);

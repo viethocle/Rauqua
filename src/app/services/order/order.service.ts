@@ -21,7 +21,7 @@ export class OrderService {
     );
   }
   updateOrder(order: any): Observable<any> {
-    let value = "?processing_status=" + order.process_status.id  + "&payment_status=" + order.processing_status 
+    let value = "?processing_status=" + order.process_status.id  + "&payment_status=" + order.payment_method_id 
     const resource = {
       body: null,
       url: apiURL.order.update + order.id + value

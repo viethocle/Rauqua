@@ -79,19 +79,16 @@
               </button>
               <ul class="dropdown-menu">
                   <li>
-                    <a *ngIf="order?.payment_status != statusPayment.no" class="btn-warning" (click)="updateStatus(order,  statusPayment.no)">{{ statusPayment.no}}</a>
+                    <a *ngIf="order?.payment_status != statusPayment.no" class="btn-warning" (click)="updatePayment(order,  statusPayment.no)">{{ statusPayment.no}}</a>
                   </li>
                   <li>
-                    <a *ngIf="order?.payment_status != statusPayment.yes" class="btn-success" (click)="updateStatus(order,  statusPayment.yes)">{{ statusPayment.yes}}</a>
+                    <a *ngIf="order?.payment_status != statusPayment.yes" class="btn-success" (click)="updatePayment(order,  statusPayment.yes)">{{ statusPayment.yes}}</a>
                   </li>
                 </ul>
             </div>
           </td>
           <td>{{ order?.payment_method?.name}}</td>
           <td class="center">
-            <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}">
-              <i class="ace-icon fa fa-pencil bigger-120"></i>
-            </button>
             <button class="btn btn-xs btn-danger" tooltip="{{ 'Xóa' }}" (click)="deleteorder(order.id)">
               <i class="ace-icon fa fa-trash-o bigger-120"></i>
             </button>
