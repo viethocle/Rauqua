@@ -29,12 +29,14 @@ export const apiURL = {
     all: "products",
     post: "products",
     delete: "products/",
+    detail: "products/",
     edit: "products/",
     shop: "products?shop_id="
   },
   order: {
     all: "orders",
     delete: "orders/",
+    detail: "orders/",
     update: "orders/"
   },
   promotion: {

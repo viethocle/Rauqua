@@ -89,7 +89,7 @@ export class UserComponent implements OnInit {
         address: ["", Validators.required],
         phone: [
           "",
-          Validators.compose([Validators.required, Validators.minLength(9)])
+          Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])
         ],
         password: ["", Validators.minLength(8)],
         password_confirmation: [""],

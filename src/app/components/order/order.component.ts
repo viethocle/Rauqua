@@ -1,9 +1,15 @@
-import { Component, OnInit, AfterViewInit, ViewContainerRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewContainerRef
+} from "@angular/core";
 import { Subject, fromEvent } from "rxjs";
 import { OrderService } from "../../services/order/order.service";
 import * as _ from "lodash";
 import { map, debounceTime } from "rxjs/operators";
 import { ToastsManager } from "ng6-toastr";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-order",
@@ -49,6 +55,7 @@ export class OrderComponent implements OnInit, AfterViewInit {
   constructor(
     private orderService: OrderService,
     public toastr: ToastsManager,
+    private router: Router,
     vcr: ViewContainerRef
   ) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -113,10 +120,16 @@ export class OrderComponent implements OnInit, AfterViewInit {
       this.toastr.success("Chuyển trạng thái thành công!");
     });
   }
+
   deleteOrder(id: number) {
     this.orderService.deleteOrder(id).subscribe(res => {
       this.orders = _.reject(this.orders, ["id", id]);
+      this.configPagination.totalItems -= 1;
     });
+  }
+
+  openModalDetail(order: any) {
+    this.router.navigate([`/order/${order.id}`]);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event

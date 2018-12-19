@@ -53,8 +53,7 @@ export class CouponComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      code: ["", Validators.compose([Validators.required])],
-      percents: ["", Validators.required],
+      percents: [0, Validators.compose([Validators.required, Validators.pattern('[0-9]*'), Validators.min(0), Validators.max(100)])],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required],
       times: ["", Validators.required]
@@ -81,7 +80,6 @@ export class CouponComponent implements OnInit {
   addCoupon() {
     const formData: FormData = new FormData();
     formData.append("image", this.selectedFile, this.selectedFile.name);
-    formData.append("code", this.form.value.code);
     formData.append("percents", this.form.value.percents);
     formData.append("start_date", this.startDate);
     formData.append("end_date", this.endDate);
@@ -97,7 +95,6 @@ export class CouponComponent implements OnInit {
   openModalEditCoupon(coupon: any) {
     this.modalEdit.open();
     this.form.patchValue({
-      code: coupon.code,
       persents: coupon.percents,
       start_date: coupon.start_date,
       end_date: coupon.end_date,
@@ -109,7 +106,6 @@ export class CouponComponent implements OnInit {
   editCoupon() {
     const formData: FormData = new FormData();
     formData.append("image", this.selectedFile, this.selectedFile.name);
-    formData.append("code", this.form.value.code);
     formData.append("percents", this.form.value.percents);
     formData.append("start_date", this.startDate);
     formData.append("end_date", this.endDate);

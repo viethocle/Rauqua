@@ -45,7 +45,7 @@ export class PromotionComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
-      percents: ["", Validators.required],
+      percents: [0, Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required]
     });

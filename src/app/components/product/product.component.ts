@@ -35,6 +35,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   categories$: Observable<any[]>;
   category_id: any;
   product: any;
+  productDetail: any;
   currentShop: any;
   keyUpSearch = new Subject<string>();
   public configPagination = {
@@ -121,13 +122,25 @@ export class ProductComponent implements OnInit, AfterViewInit {
         "",
         Validators.compose([Validators.required, Validators.minLength(2)])
       ],
-      shop_id: ["", Validators.required],
+      shop_id: [""],
       category_id: ["", Validators.required],
-      describe: ["", Validators.required],
-      price: [0, Validators.required],
-      origin: ["da nang", Validators.required],
-      quantity: [0, Validators.required],
-      number_expired: ["", Validators.required]
+      describe: [
+        "",
+        Validators.compose([Validators.required, Validators.minLength(2)])
+      ],
+      price: [
+        0,
+        Validators.compose([Validators.required, Validators.pattern("[0-9]*")])
+      ],
+      origin: ["", Validators.required],
+      quantity: [
+        0,
+        Validators.compose([Validators.required, Validators.pattern("[0-9]*")])
+      ],
+      number_expired: [
+        0,
+        Validators.compose([Validators.required, Validators.pattern("[0-9]*")])
+      ]
     });
   }
 
@@ -158,6 +171,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
     formData.append("number_expired", value.number_expired);
     this.productService.postProduct(formData).subscribe(res => {
       this.products.unshift(res);
+      this.configPagination.totalItems += 1;
       this.toastr.success("Tạo mới thành công!");
     });
     this.modal.close();
@@ -166,6 +180,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe(res => {
       this.products = _.reject(this.products, ["id", id]);
+      this.configPagination.totalItems -= 1;
     });
   }
 
@@ -190,5 +205,9 @@ export class ProductComponent implements OnInit, AfterViewInit {
       this.toastr.success("Chỉnh sửa thành công!");
     });
     this.modalEdit.close();
+  }
+
+  openModalDetail(product: any) {
+    this.router.navigate([`/product/${product.id}`]);
   }
 }

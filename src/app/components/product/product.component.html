@@ -3,38 +3,24 @@
 </h1>
 <div id="main-product" class="col-md-12" *ngIf="products != null">
   <div class="tableTools-container" *ngIf="isProvider">
-    <button
-      type="button"
-      class="btn btn-primary create-product"
-      (click)="modal.open()"
-    >
+    <button type="button" class="btn btn-primary create-product" (click)="modal.open()">
       Tạo mới sản phẩm
     </button>
   </div>
 
-  <div
-    id="dynamic-table_wrapper_wrapper"
-    class="dataTables_wrapper form-inline no-footer"
-  >
+  <div id="dynamic-table_wrapper_wrapper" class="dataTables_wrapper form-inline no-footer">
     <div class="row">
       <div class="col-xs-9">
         <div class="dataTables_length" id="dynamic-table_wrapper_length">
-          <label
-            >Hiển thị
-            <select
-              (change)="onChangeCount($event)"
-              [(ngModel)]="configPagination.itemsPerPage"
-              name="dynamic-table_wrapper_length"
-              aria-controls="dynamic-table_wrapper"
-              class="form-control input-sm"
-            >
+          <label>Hiển thị
+            <select (change)="onChangeCount($event)" [(ngModel)]="configPagination.itemsPerPage" name="dynamic-table_wrapper_length"
+              aria-controls="dynamic-table_wrapper" class="form-control input-sm">
               <option value="10">10</option>
               <option value="25">25</option>
               <option value="50">50</option>
               <option value="100">100</option>
             </select>
-            dòng</label
-          >
+            dòng</label>
         </div>
       </div>
       <div class="col-xs-3">
@@ -48,12 +34,8 @@
         </div>
       </div>
     </div>
-    <table
-      id="dynamic-table_wrapper"
-      class="table table-striped table-bordered table-hover dataTable no-footer"
-      cellspacing="0"
-      width="100%"
-    >
+    <table id="dynamic-table_wrapper" class="table table-striped table-bordered table-hover dataTable no-footer"
+      cellspacing="0" width="100%">
       <thead>
         <tr>
           <th>ID</th>
@@ -70,11 +52,7 @@
       <tbody>
         <tr *ngFor="let product of products| paginate: { itemsPerPage: 10, currentPage: configPagination.currentPage, totalItems: configPagination.totalItems }">
           <td>{{ product?.id }}</td>
-          <td>{{ product?.name }}</td>
-          <!--
-            <td *ngIf="!isProvider">{{ product.shop_id }}</td>
-            <td>{{ product.category_id }}</td>
-          -->
+          <td><span (click)="openModalDetail(product)" class="editable editable-click">{{ product?.name }}</span></td>
           <td *ngIf="!isProvider">{{ product?.shop?.name }}</td>
           <td>{{ product?.category?.name }}</td>
           <td>{{ product?.describe }}</td>
@@ -82,18 +60,10 @@
           <td>{{ product?.quantity }}</td>
           <td>{{ product?.origin }}</td>
           <td class="center">
-            <button
-              class="btn btn-xs btn-info"
-              tooltip="{{ 'Sửa'}}"
-              (click)="openModalEdit(product)"
-            >
+            <button class="btn btn-xs btn-info" tooltip="{{ 'Sửa'}}" (click)="openModalEdit(product)">
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             </button>
-            <button
-              class="btn btn-xs btn-danger"
-              tooltip="{{ 'Xóa' }}"
-              (click)="deleteProduct(product.id)"
-            >
+            <button class="btn btn-xs btn-danger" tooltip="{{ 'Xóa' }}" (click)="deleteProduct(product.id)">
               <i class="ace-icon fa fa-trash-o bigger-120"></i>
             </button>
           </td>
@@ -101,155 +71,110 @@
       </tbody>
     </table>
     <br>
-    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
-  </div>
-</div>
-<bs-modal #modal>
-  <bs-modal-header [showDismiss]="true">
-    <h4 class="modal-title">Tạo mới sản phẩm</h4>
-  </bs-modal-header>
-  <bs-modal-body>
-    <app-input-field
-      [attribute]="'Tên loại sản phẩm'"
-      [control]="form.get('name')"
-    >
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+    <div class="row">
+      <div class="col-xs-8">
+        Danh sách hiện có {{ configPagination.totalItems }} danh mục
+      </div>
+      <div class="col-xs-4">
+        <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+      </div>
+    </div>
+  </div>  
+    <bs-modal #modal>
+      <bs-modal-header [showDismiss]="true">
+        <h4 class="modal-title">Tạo mới sản phẩm</h4>
+      </bs-modal-header>
+      <bs-modal-body>
+        <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <div>Category</div>
-    <ng-select
-      [items]="categories$"
-      bindLabel="name"
-      autofocus
-      bindValue="id"
-      [(ngModel)]="category_id"
-    >
-    </ng-select>
+        <div>Category</div>
+        <ng-select [items]="categories$" bindLabel="name" autofocus bindValue="id" [(ngModel)]="category_id">
+        </ng-select>
 
-    <app-input-field [attribute]="'Describe'" [control]="form.get('describe')">
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Describe'" [control]="form.get('describe')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <app-input-field [attribute]="'Giá'" [control]="form.get('price')">
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Giá'" [control]="form.get('price')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <app-input-field [attribute]="'Nguồn gốc'" [control]="form.get('origin')">
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Nguồn gốc'" [control]="form.get('origin')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <app-input-field [attribute]="'Số lượng'" [control]="form.get('quantity')">
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Số lượng'" [control]="form.get('quantity')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <app-input-field
-      [attribute]="'Số ngày sử dụng'"
-      [control]="form.get('number_expired')"
-    >
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Số ngày sử dụng'" [control]="form.get('number_expired')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <h3>File upload</h3>
-    <input
-      style="display: none"
-      type="file"
-      (change)="onFileSelected($event)"
-      #fileInput
-    />
-    <button (click)="fileInput.click()">Chọn ảnh</button>
-    <img [src]="url" height="50" /> <br />
-  </bs-modal-body>
-  <bs-modal-footer>
-    <button
-      type="button"
-      class="btn btn-default"
-      data-dismiss="modal"
-      (click)="modal.dismiss()"
-    >
-      Hủy bỏ
-    </button>
-    <button
-      id="btn-create-user"
-      class="btn btn-primary add-product"
-      (click)="postProduct(form.value)"
-    >
-      Tạo mới
-    </button>
-    <!-- [disabled]="form.invalid" -->
-  </bs-modal-footer>
-</bs-modal>
+        <h3>File upload</h3>
+        <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput />
+        <button (click)="fileInput.click()">Chọn ảnh</button>
+        <img [src]="url" height="50" /> <br />
+      </bs-modal-body>
+      <bs-modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">
+          Hủy bỏ
+        </button>
+        <button id="btn-create-user" class="btn btn-primary add-product" (click)="postProduct(form.value)">
+          Tạo mới
+        </button>
+        {{ form.errors }}
+        <!-- [disabled]="form.invalid" -->
+      </bs-modal-footer>
+    </bs-modal>
 
-<bs-modal #modalEdit>
-  <bs-modal-header [showDismiss]="true">
-    <h4 class="modal-title">Chỉnh sửa sản phẩm</h4>
-  </bs-modal-header>
-  <bs-modal-body>
-    <app-input-field
-      [attribute]="'Tên loại sản phẩm'"
-      [control]="form.get('name')"
-    >
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+    <bs-modal #modalEdit>
+      <bs-modal-header [showDismiss]="true">
+        <h4 class="modal-title">Chỉnh sửa sản phẩm</h4>
+      </bs-modal-header>
+      <bs-modal-body>
+        <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <div>Category</div>
-    <ng-select
-      [items]="categories$"
-      bindLabel="name"
-      autofocus
-      bindValue="id"
-      [(ngModel)]="category_id"
-    >
-    </ng-select>
+        <div>Category</div>
+        <ng-select [items]="categories$" bindLabel="name" autofocus bindValue="id" [(ngModel)]="category_id">
+        </ng-select>
 
-    <app-input-field [attribute]="'Describe'" [control]="form.get('describe')">
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Describe'" [control]="form.get('describe')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <app-input-field [attribute]="'Giá'" [control]="form.get('price')">
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Giá'" [control]="form.get('price')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <app-input-field [attribute]="'Nguồn gốc'" [control]="form.get('origin')">
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Nguồn gốc'" [control]="form.get('origin')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <app-input-field [attribute]="'Số lượng'" [control]="form.get('quantity')">
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Số lượng'" [control]="form.get('quantity')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <app-input-field
-      [attribute]="'Số ngày sử dụng'"
-      [control]="form.get('number_expired')"
-    >
-    </app-input-field>
-    <app-error-label [control]="form"></app-error-label>
+        <app-input-field [attribute]="'Số ngày sử dụng'" [control]="form.get('number_expired')">
+        </app-input-field>
+        <app-error-label [control]="form"></app-error-label>
 
-    <h3>File upload</h3>
-    <input
-      style="display: none"
-      type="file"
-      (change)="onFileSelected($event)"
-      #fileInput
-    />
-    <button (click)="fileInput.click()">Chọn ảnh</button>
-    <img [src]="url" height="50" /> <br />
-  </bs-modal-body>
-  <bs-modal-footer>
-    <button
-      type="button"
-      class="btn btn-default"
-      data-dismiss="modal"
-      (click)="modal.dismiss()"
-    >
-      Hủy bỏ
-    </button>
-    <button
-      id="btn-create-user"
-      class="btn btn-primary add-product"
-      (click)="editProduct(form.value)"
-    >
-      Chỉnh sửa
-    </button>
-    <!-- [disabled]="form.invalid" -->
-  </bs-modal-footer>
-</bs-modal>
+        <h3>File upload</h3>
+        <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput />
+        <button (click)="fileInput.click()">Chọn ảnh</button>
+        <img [src]="url" height="50" /> <br />
+      </bs-modal-body>
+      <bs-modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">
+          Hủy bỏ
+        </button>
+        <button id="btn-create-user" class="btn btn-primary add-product" (click)="editProduct(form.value)">
+          Chỉnh sửa
+        </button>
+        <!-- [disabled]="form.invalid" -->
+      </bs-modal-footer>
+    </bs-modal>

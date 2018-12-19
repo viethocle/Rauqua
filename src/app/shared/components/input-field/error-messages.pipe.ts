@@ -30,6 +30,7 @@ export class ErrorMessagesPipe implements PipeTransform {
       minlength: this.minLengthError,
       maxlength: this.maxLengthError,
       min: this.minValueError,
+      max: this.maxValueError,
       email: this.emailNotCorrect,
       required: this.requiredError,
       full_messages: this.fullMessages,
@@ -65,8 +66,16 @@ export class ErrorMessagesPipe implements PipeTransform {
       value: error["min"]
     });
   }
+  private maxValueError(error): string {
+    return this.translate.instant("Giá trị cần phải nhỏ hơn", {
+      value: error["max"]
+    });
+  }
 
   private patternError(error): string {
+    if (error["requiredPattern"] == "^[0-9]*$") {
+      return `Giá trị cần nhập là số nguyên`
+    }
     return `Must match /${error["requiredPattern"]}/ pattern`;
   }
 

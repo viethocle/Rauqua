@@ -84,4 +84,16 @@ export class ProductService {
       })
     );
   }
+
+  getProductDetail(productId: any){
+    const resource = {
+      body: null,
+      url: apiURL.product.detail + productId
+    };
+    return this.dataService.get(resource).pipe(
+      map(res => {
+        return res.result;
+      })
+    );
+  }
 }

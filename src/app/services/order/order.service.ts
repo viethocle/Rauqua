@@ -55,4 +55,16 @@ export class OrderService {
       })
     );
   }
+
+  getProductDetail(id: number): Observable<any> {
+    const resource = {
+      body: null,
+      url: apiURL.order.detail + id
+    };
+    return this.dataService.get(resource).pipe(
+      map(res => {
+        return res.result;
+      })
+    );
+  }
 }

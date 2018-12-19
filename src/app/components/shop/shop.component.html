@@ -127,7 +127,7 @@
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalCreate.dismiss()">
       {{ "Hủy bỏ" }}
     </button>
-    <button type="button" class="btn btn-primary" (click)="createShop()">
+    <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="createShop()">
       {{ "Tạo Mới" }}
     </button>
   </bs-modal-footer>

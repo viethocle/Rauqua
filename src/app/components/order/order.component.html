@@ -29,7 +29,7 @@
       cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Mã đơn hàng</th>
           <th>Tên Khách hàng</th>
           <th>Thời gian giao hàng</th>
           <th>Trạng thái đơn hàng</th>
@@ -40,7 +40,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of orders| paginate: { itemsPerPage: 10, currentPage: configPagination.currentPage, totalItems: configPagination.totalItems }">
-          <td>{{ order?.id }}</td>
+          <td><span (click)="openModalDetail(order)" class="editable editable-click">{{ order?.code }}</span></td>
           <td>{{ order?.user?.fullname }}</td>
           <td>{{ order?.delivery_time | date}}</td>
           <td>
@@ -89,7 +89,7 @@
           </td>
           <td>{{ order?.payment_method?.name}}</td>
           <td class="center">
-            <button class="btn btn-xs btn-danger" tooltip="{{ 'Xóa' }}" (click)="deleteorder(order.id)">
+            <button class="btn btn-xs btn-danger" tooltip="{{ 'Xóa' }}" (click)="deleteOrder(order.id)">
               <i class="ace-icon fa fa-trash-o bigger-120"></i>
             </button>
           </td>
@@ -97,6 +97,13 @@
       </tbody>
     </table>
     <br>
-    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+    <div class="row">
+      <div class="col-xs-8">
+        Danh sách hiện có {{ configPagination.totalItems }} danh mục
+      </div>
+      <div class="col-xs-4">
+        <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+      </div>
+    </div>
   </div>
 </div>

@@ -99,7 +99,7 @@
     >
       {{ "Hủy bỏ" }}
     </button>
-    <button type="button" class="btn btn-primary" (click)="addPromotion()">
+    <button type="button"  [disabled]="form.invalid" class="btn btn-primary" (click)="addPromotion()">
       {{ "Tạo Mới" }}
     </button>
   </bs-modal-footer>
