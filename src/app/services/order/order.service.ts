@@ -56,7 +56,7 @@ export class OrderService {
     );
   }
 
-  getProductDetail(id: number): Observable<any> {
+  getOrderDetail(id: number): Observable<any> {
     const resource = {
       body: null,
       url: apiURL.order.detail + id

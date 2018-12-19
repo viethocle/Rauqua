@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class OrderDetailComponent implements OnInit {
   currentOrderId: any;
-  productDetail: any;
+  orderDetail: any;
   constructor(
     private orderService:OrderService,
     public authService: AuthService,
@@ -30,8 +30,8 @@ export class OrderDetailComponent implements OnInit {
   }
 
   getOrderDetail(orderId: any){
-    this.orderService.getProductDetail(orderId).subscribe(res => {
-      this.productDetail = res;
+    this.orderService.getOrderDetail(orderId).subscribe(res => {
+      this.orderDetail = res;
     });
   }
 }
