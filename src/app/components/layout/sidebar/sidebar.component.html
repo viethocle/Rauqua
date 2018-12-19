@@ -63,9 +63,12 @@
     </a>
   </li>
 
-  
-
-
+  <li routerLinkActive="active" *ngIf="!isProvider">
+    <a [routerLink]="['/customer']">
+      <i class="menu-icon fa fa-credit-card "></i>
+      <span class="menu-text"> Khách hàng </span>
+    </a>
+  </li>
 </ul>
 <!-- /.nav-list -->
 

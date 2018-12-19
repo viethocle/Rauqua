@@ -50,7 +50,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products| paginate: { itemsPerPage: 10, currentPage: configPagination.currentPage, totalItems: configPagination.totalItems }">
+        <tr [ngClass]="{note: product?.quantity < 5 || product?.quantity == 0}" *ngFor="let product of products| paginate: { itemsPerPage: 10, currentPage: configPagination.currentPage, totalItems: configPagination.totalItems }">
           <td>{{ product?.id }}</td>
           <td><span (click)="openModalDetail(product)" class="editable editable-click">{{ product?.name }}</span></td>
           <td *ngIf="!isProvider">{{ product?.shop?.name }}</td>

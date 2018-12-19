@@ -15,5 +15,6 @@ export const routePath = {
   OrderDetail: 'order/:id',
   Promotion: 'promotion',
   Coupon: 'coupon',
-  Shop: 'shop'
+  Shop: 'shop',
+  Customer: 'customer'
 };

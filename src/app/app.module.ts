@@ -44,6 +44,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ProductDetailComponent } from "./components/product-detail/product-detail.component";
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { CustomerComponent } from './components/customer/customer.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -72,7 +73,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NavbarComponent,
     ShopComponent,
     ProductDetailComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,

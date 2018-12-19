@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let coupon of coupons">
+      <tr *ngFor="let coupon of coupons" [ngClass]="{note: coupon?.times == 0}">
         <td>{{ coupon?.id }}</td>
         <td>{{ coupon?.code }}</td>
         <td>{{ coupon?.percents }} %</td>

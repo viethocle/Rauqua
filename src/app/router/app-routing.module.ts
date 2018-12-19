@@ -18,6 +18,7 @@ import { AdminRouteGuard } from "app/services/auth/admin-route.guard";
 import { ModRouteGuard } from "app/services/auth/mod-route.guard";
 import { ProductDetailComponent } from "app/components/product-detail/product-detail.component";
 import { OrderDetailComponent } from "app/components/order-detail/order-detail.component";
+import { CustomerComponent } from "app/components/customer/customer.component";
 
 const routes: Routes = [
   {
@@ -77,6 +78,11 @@ const routes: Routes = [
   {
     path: routePath.Shop,
     component: ShopComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: routePath.Customer,
+    component: CustomerComponent,
     canActivate: [AuthGuardService]
   },
   {

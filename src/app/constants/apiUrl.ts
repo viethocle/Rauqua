@@ -56,5 +56,10 @@ export const apiURL = {
     create: "shops",
     delete: "shops/",
     edit: "shops/"
+  },
+  customer: {
+    all: "users",
+    update: "users/",
+    delete: "users/"
   }
 }
