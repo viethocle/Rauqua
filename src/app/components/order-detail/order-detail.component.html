@@ -124,10 +124,10 @@
 
                       <td class="hidden-480"> {{product?.shop?.name}} </td>
 
-                      <td>{{product?.product?.price}}</td>
+                      <td>{{product?.product?.price |number}}</td>
 
                       <td class="hidden-xs">
-                        {{product?.quantity}}
+                        {{product?.quantity |number}}
                       </td>
                     </tr>
                   </tbody>
@@ -141,12 +141,12 @@
                   <h4 class="pull-right">
                     <div>
                       Tổng cộng :
-                    <span class="red" style="text-decoration: line-through;">{{orderDetail?.total_money}} VNĐ</span>
+                    <span class="red" style="text-decoration: line-through;">{{orderDetail?.total_money |number}} VNĐ</span>
                     </div>
                     <div class="space-6"></div>
                     <div>
                       Tổng hóa đơn :
-                      <span class="red">{{total}} VNĐ</span>
+                      <span class="red">{{total |number}} VNĐ</span>
                     </div>
                   </h4>
                 </div>
