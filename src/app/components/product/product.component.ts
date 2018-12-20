@@ -107,6 +107,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
     this.products = res.data;
     this.configPagination.totalItems = res.paginator.total;
   }
+
   onChangeCount($event) {
     this.getListProducts();
   }

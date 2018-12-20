@@ -11,10 +11,12 @@ import { log } from "util";
 export class CustomerService {
   constructor(private dataService: DataService) {}
 
-  getcustomer(): Observable<any> {
+  getCustomer(configPagination: any): Observable<any> {
     const resource = {
       body: null,
-      url: apiURL.customer.all
+      url:
+        apiURL.customer.all +
+        this.getUrlGetCustomerFromConfparam(configPagination)
     };
     return this.dataService.get(resource).pipe(
       map(res => {
@@ -23,18 +25,29 @@ export class CustomerService {
     );
   }
 
+  getUrlGetCustomerFromConfparam(configPagination: any): string {
+    return (
+      "?perpage=" +
+      configPagination.itemsPerPage +
+      "&page=" +
+      configPagination.currentPage +
+      "&keyword=" +
+      configPagination.keyword
+    );
+  }
+
   updateCustomer(value: any, customerId: any): Observable<any> {
     const resource = {
       body: value,
       url: apiURL.customer.update + customerId
-    }
+    };
 
     return this.dataService.put(resource).pipe(
       map(res => {
-        return res.result
+        return res.result;
       }),
       catchError(err => throwError(err))
-    )
+    );
   }
 
   deletecustomer(id: number): Observable<any> {
