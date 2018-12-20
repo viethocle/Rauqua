@@ -104,7 +104,7 @@ export class UserComponent implements OnInit {
       can_view: true,
       can_add: true,
       can_edit: true,
-      can_del: true
+      can_del: false,
     });
   }
 
