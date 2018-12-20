@@ -56,8 +56,9 @@ export class CustomerComponent implements OnInit, AfterViewInit {
   onChangeCount($event) {
     this.getListCustomers();
   }
-  getPage() {
-    
+  getPage(page: number) {
+    this.configPagination.currentPage = page;
+    this.getListCustomers();
   }
   getListCustomers() {
     this.customerService.getCustomer(this.configPagination).subscribe(res => {
