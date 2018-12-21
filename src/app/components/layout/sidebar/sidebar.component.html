@@ -5,8 +5,8 @@
 
 </script>
 
-<ul class="nav nav-list">
-    <li routerLinkActive="active">
+<ul class="nav nav-list" >
+    <li routerLinkActive="active" *ngIf="!isProvider">
         <a [routerLink]="['/shop']">
           <i class="menu-icon fa fa-users "></i>
           <span class="menu-text">

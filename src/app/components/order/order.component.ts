@@ -91,7 +91,7 @@ export class OrderComponent implements OnInit, AfterViewInit {
   getOrders() {
     this.orderService.getOrder(this.configPagination).subscribe(res => {
       this.orders = res.data;
-      this.configPagination.totalItems = res.paginator.total;
+      this.configPagination.totalItems = res.total;
     });
   }
 

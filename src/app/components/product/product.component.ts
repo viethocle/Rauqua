@@ -27,7 +27,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   @ViewChild("modal") modal: BsModalComponent;
   @ViewChild("modalEdit") modalEdit: BsModalComponent;
   form: FormGroup;
-  selectedFile: File = null;
+  selectedFiles: File;
   url: any =
     "https://image.freepik.com/free-photo/rows-of-colorful-energy-category_1156-662.jpg";
   products: any[] = [];
@@ -45,6 +45,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
     totalItems: 100,
     keyword: ""
   };
+  files: any;
   constructor(
     private productService: ProductService,
     private fb: FormBuilder,
@@ -145,23 +146,16 @@ export class ProductComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-
-      reader.onload = event => {
-        this.url = event.target;
-        this.url = this.url.result;
-      };
-    }
+  onChange(event: any, input: any) {
+    this.files = [].slice.call(event.target.files);
   }
 
   postProduct(value: any) {
-    const formData: FormData = new FormData();
-    formData.append("image", this.selectedFile, this.selectedFile.name);
+    const formData = new FormData();
+
+    for (let i = 0; i < this.files.length; i++) {
+      formData.append("images[]", this.files[i], this.files[i].name);
+    }
     formData.append("name", value.name);
     formData.append("shop_id", this.currentShop.id);
     formData.append("category_id", this.category_id);

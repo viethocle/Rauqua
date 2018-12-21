@@ -42,6 +42,7 @@
           <th>Tên sản phẩm</th>
           <th *ngIf="!isProvider">Tên shop</th>
           <th>Loại sản phẩm</th>
+          <th>Hình ảnh</th>
           <th>Thông tin</th>
           <th>Giá</th>
           <th>Số lượng</th>
@@ -55,6 +56,7 @@
           <td><span (click)="openModalDetail(product)" class="editable editable-click">{{ product?.name }}</span></td>
           <td *ngIf="!isProvider">{{ product?.shop?.name }}</td>
           <td>{{ product?.category?.name }}</td>
+          <td><img src="{{ product?.images[0]?.path }}" alt="" height="60" /></td>
           <td>{{ product?.describe }}</td>
           <td>{{ product?.price }}</td>
           <td>{{ product?.quantity }}</td>
@@ -86,7 +88,7 @@
     <h4 class="modal-title">Tạo mới sản phẩm</h4>
   </bs-modal-header>
   <bs-modal-body>
-    <app-input-field [attribute]="'Tên loại sản phẩm'" [control]="form.get('name')">
+    <app-input-field [attribute]="'Tên sản phẩm'" [control]="form.get('name')">
     </app-input-field>
     <app-error-label [control]="form"></app-error-label>
 
@@ -115,9 +117,7 @@
     <app-error-label [control]="form"></app-error-label>
 
     <h3>File upload</h3>
-    <input style="display: none" type="file" (change)="onFileSelected($event)" #fileInput />
-    <button (click)="fileInput.click()">Chọn ảnh</button>
-    <img [src]="url" height="50" /> <br />
+    <input type="file" multiple (change)="onChange($event, showFileNames)" />
   </bs-modal-body>
   <bs-modal-footer>
     <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">

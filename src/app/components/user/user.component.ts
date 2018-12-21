@@ -125,6 +125,7 @@ export class UserComponent implements OnInit {
     this.userService.createUser(value).subscribe(res => {
       this.users.unshift(res);
       this.toastr.success("Tạo mới thành công!");
+      this.backAddUser()
     },
       err => {
         this.toastr.error("Đã xảy ra lỗi: ", err);

@@ -71,7 +71,7 @@ export class ShopComponent implements OnInit {
   buildForm() {
     this.form = this.fb.group({
       name: ["", Validators.compose([Validators.required])],
-      provider_id: ["", Validators.required],
+      manager_id: ["", Validators.required],
       address: ["", Validators.required],
       phone: [
         "",
@@ -119,7 +119,7 @@ export class ShopComponent implements OnInit {
     const formData: FormData = new FormData();
     formData.append("image", this.selectedFile, this.selectedFile.name);
     formData.append("name", this.form.value.name);
-    formData.append("provider_id", this.form.value.provider_id);
+    formData.append("manager_id", this.form.value.manager_id);
     formData.append("address", this.form.value.address);
     formData.append("phone", this.form.value.phone);
     this.shopService.addShop(formData).subscribe(res => {
@@ -146,7 +146,7 @@ export class ShopComponent implements OnInit {
     const formData: FormData = new FormData();
 
     formData.append("name", this.form.value.name);
-    formData.append("provider_id", this.form.value.provider_id);
+    formData.append("manager_id", this.form.value.manager_id);
     formData.append("address", this.form.value.address);
     formData.append("phone", this.form.value.phone);
     if (this.chooseEditImage) {
@@ -187,7 +187,7 @@ export class ShopComponent implements OnInit {
   selectCustomer(cus: any) {
     this.customerSelected = cus;
     this.form.patchValue({
-      provider_id: this.customerSelected.id
+      manager_id: this.customerSelected.id
     });
     this.termCustomer = "";
   }
@@ -233,7 +233,7 @@ export class ShopComponent implements OnInit {
   setFormValue(shop: any) {
     this.form.patchValue({
       name: shop.name,
-      provider_id: shop.provider.id,
+      manager_id: shop.provider.id,
       address: shop.address,
       phone: shop.phone
     });
